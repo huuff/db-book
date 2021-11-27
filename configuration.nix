@@ -1,20 +1,31 @@
 { pkgs, ... }:
-{
+let
+  largeDataset = ./large-dataset.sql;
+  smallDataset = ./small-dataset.sql; 
+in {
   boot.isContainer = true;
 
   networking.useDHCP = false;
+  networking.firewall.allowedTCPPorts = [ 5432 ];
+
+  environment.systemPackages = [ pkgs.telnet ];
 
   services.postgresql = {
     enable = true;
+    enableTCPIP = true;
 
     authentication = pkgs.lib.mkOverride 10 ''
       local all all trust
-      host all all ::1/128 trust
+      host all all 0.0.0.0/0 trust
     '';
 
     initialScript = pkgs.writeText "initialScript" ''
       CREATE DATABASE db_book;
     '';
+
+    settings= {
+      listen_addresses = "*";
+    };
   };
 
   systemd = {
@@ -41,7 +52,7 @@
 
       script = ''
         psql -U postgres -d 'db_book' -f ${./DDL.sql}
-        psql -U postgres -d 'db_book' -f ${./data.sql}
+        psql -U postgres -d 'db_book' -f ${smallDataset}
       '';
     };
   };
