@@ -19,9 +19,7 @@ in {
       host all all 0.0.0.0/0 trust
     '';
 
-    initialScript = pkgs.writeText "initialScript" ''
-      CREATE DATABASE db_book;
-    '';
+    ensureDatabases = [ "db_book" ];
 
     settings= {
       listen_addresses = "*";
