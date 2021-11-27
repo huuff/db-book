@@ -37,7 +37,7 @@ in {
       path = [ pkgs.postgresql_13 ];
 
       serviceConfig = {
-        Type = "oneshot";
+        Type = "simple";
         RemainAfterExit = true;
       };
 
@@ -50,7 +50,7 @@ in {
 
       script = ''
         psql -U postgres -d 'db_book' -f ${./DDL.sql}
-        psql -U postgres -d 'db_book' -f ${smallDataset}
+        psql -U postgres -d 'db_book' -f ${largeDataset}
       '';
     };
   };

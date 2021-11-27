@@ -1,19 +1,4 @@
 # `db-book`
-## Starting the DB
-Create the container with
+Run `start.sh` to create and destroy a NixOS container running the DB (it takes a while until it gets fully populated)
 
-```
-sudo nixos-container create db-book --flake .
-```
-
-Start it with
-
-```
-sudo nixos-container start db-book
-```
-
-It'll timeout the first time (has to load the whole dataset), but wait for a while and then you can SSH into it
-
-```
-sudo nixos-container root-login db-book
-```
+Run `connect.sh` to connect with `pgcli`
