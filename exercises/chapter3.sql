@@ -170,3 +170,16 @@ BEGIN
   );
 END;
 $$;
+
+CREATE OR REPLACE FUNCTION ex32c()
+RETURNS TABLE(student_id VARCHAR(5), gpa NUMERIC(2,1))
+LANGUAGE plpgsql
+AS
+$$
+BEGIN
+  RETURN QUERY(
+    SELECT student.id, ex32b(student.id)
+    FROM student
+  );
+END;
+$$;
