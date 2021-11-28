@@ -309,3 +309,17 @@ BEGIN
   );
 END;
 $$;
+
+CREATE OR REPLACE FUNCTION ex36(substr VARCHAR(20))
+RETURNS TABLE ( dept_name VARCHAR(20))
+LANGUAGE plpgsql
+AS
+$$
+BEGIN
+  RETURN QUERY (
+    SELECT department.dept_name
+    FROM department
+    WHERE lower(department.dept_name) like CONCAT('%', substr, '%')
+  );
+END;
+$$;
