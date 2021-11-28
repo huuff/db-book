@@ -207,6 +207,7 @@ BEGIN
 END;
 $$;
 
+-- Also have to remove from prereq or foreign key constraint fails
 -- TODO: Ugly and with repetition --
 CREATE OR REPLACE PROCEDURE ex33b()
 LANGUAGE plpgsql
@@ -233,3 +234,20 @@ BEGIN
   WHERE course_id IN (SELECT * FROM unoffered_courses);
 END;
 $$;
+
+-- Can't set salary to 10000, there's a constraint that the minimum
+-- is 29001
+CREATE OR REPLACE PROCEDURE ex33c()
+LANGUAGE plpgsql
+AS
+$$
+BEGIN
+  INSERT INTO instructor (id, name, dept_name, salary)
+    SELECT student.id, student.name, student.dept_name, 30000
+    FROM student
+    WHERE student.tot_cred > 100
+  ON CONFLICT (id) DO NOTHING
+  ;
+END;
+$$;
+
