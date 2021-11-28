@@ -20,8 +20,9 @@ in {
     '';
 
     ensureDatabases = [ 
-      "db_book" 
+      "db_book" # TODO Should be university (obviously also correct the systemd unit)
       "insurance"
+      "bank"
     ];
 
     settings= {
