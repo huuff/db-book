@@ -82,4 +82,17 @@ BEGIN
     GROUP BY (section.course_id, section.sec_id)
   );
 END;
+$$;
+
+CREATE OR REPLACE FUNCTION ex31f(section_year NUMERIC(4, 0))
+RETURNS BIGINT
+LANGUAGE plpgsql
+AS
 $$
+BEGIN
+  RETURN (
+    SELECT MAX(enrollment)
+    FROM ex31e(section_year)
+  ); 
+END;
+$$;
