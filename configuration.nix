@@ -23,6 +23,7 @@ in {
       "db_book" # TODO Should be university (obviously also correct the systemd unit)
       "insurance"
       "bank"
+      "employees"
     ];
 
     settings= {
