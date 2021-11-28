@@ -19,7 +19,10 @@ in {
       host all all 0.0.0.0/0 trust
     '';
 
-    ensureDatabases = [ "db_book" ];
+    ensureDatabases = [ 
+      "db_book" 
+      "insurance"
+    ];
 
     settings= {
       listen_addresses = "*";
