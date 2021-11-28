@@ -31,7 +31,7 @@ END;
 $$;
 
 CREATE OR REPLACE FUNCTION ex31c()
-RETURNS INTEGER
+RETURNS NUMERIC(8, 2)
 LANGUAGE plpgsql
 AS
 $$
@@ -43,6 +43,20 @@ BEGIN
       SELECT salary
       FROM instructor
     )
+  );
+END;
+$$;
+
+CREATE OR REPLACE FUNCTION ex31d()
+RETURNS VARCHAR(20)
+LANGUAGE plpgsql
+AS
+$$
+BEGIN
+  RETURN (
+    SELECT instructor.name
+    FROM instructor
+    WHERE instructor.salary = (SELECT ex31c())
   );
 END;
 $$;
