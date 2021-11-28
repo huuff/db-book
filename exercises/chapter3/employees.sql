@@ -36,3 +36,21 @@ BEGIN
     );
 END;
 $$;
+
+CREATE OR REPLACE FUNCTION ex39c(search_company_name VARCHAR(25))
+RETURNS TABLE (id INTEGER)
+LANGUAGE plpgsql
+AS
+$$
+BEGIN
+  RETURN QUERY (
+    SELECT employee.id
+    FROM employee
+    WHERE employee.id NOT IN (
+      SELECT works.id
+      FROM works
+      WHERE works.company_name = search_company_name
+    )
+  );
+END;
+$$;
