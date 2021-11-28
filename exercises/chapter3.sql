@@ -60,3 +60,26 @@ BEGIN
   );
 END;
 $$;
+
+CREATE OR REPLACE FUNCTION ex31e(section_year NUMERIC(4, 0))
+RETURNS TABLE(
+  course_id VARCHAR(8),
+  sec_id VARCHAR(8),
+  enrollment BIGINT
+)
+LANGUAGE plpgsql
+AS
+$$
+BEGIN
+  RETURN QUERY(
+    SELECT  
+      section.course_id,
+      section.sec_id,
+      COUNT(DISTINCT(takes.id)) AS enrollment
+    FROM section
+    JOIN takes ON takes.course_id = section.course_id
+    WHERE section.semester = 'Fall' AND section.year = section_year
+    GROUP BY (section.course_id, section.sec_id)
+  );
+END;
+$$
