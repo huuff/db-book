@@ -250,3 +250,62 @@ BEGIN
   ;
 END;
 $$;
+
+CREATE TABLE IF NOT EXISTS marks(
+  id VARCHAR(5) REFERENCES student PRIMARY KEY,
+  score INTEGER CHECK (score BETWEEN 0 AND 100)
+);
+
+INSERT INTO marks (id, score)
+  SELECT student.id, random() * 100
+  FROM student
+ON CONFLICT (id) DO NOTHING;
+
+CREATE OR REPLACE FUNCTION grade_from_score(score INTEGER)
+RETURNS CHAR(1)
+LANGUAGE plpgsql
+AS
+$$
+BEGIN
+  RETURN CASE
+    WHEN score < 40 THEN 'F'
+    WHEN score BETWEEN 40 AND 60 THEN 'C'
+    WHEN score BETWEEN 60 AND 80 THEN 'B'
+    WHEN score BETWEEN 80 AND 100 THEN 'A'
+  END;
+END;
+$$;
+
+CREATE OR REPLACE FUNCTION ex35a()
+RETURNS TABLE (
+  id VARCHAR(5),
+  grade CHAR(1)
+)
+LANGUAGE plpgsql
+AS
+$$
+BEGIN
+  RETURN QUERY(
+    SELECT student.id, grade_from_score(marks.score)
+    FROM student
+    JOIN marks ON student.id = marks.id
+  );
+END;
+$$;
+
+CREATE OR REPLACE FUNCTION ex35b()
+RETURNS TABLE (
+  grade CHAR(1),
+  students BIGINT
+)
+LANGUAGE plpgsql
+AS
+$$
+BEGIN
+  RETURN QUERY(
+    SELECT id_and_grade.grade, COUNT(id_and_grade.id)
+    FROM ex35a() AS id_and_grade
+    GROUP BY id_and_grade.grade
+  );
+END;
+$$;
