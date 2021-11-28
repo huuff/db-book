@@ -29,3 +29,20 @@ BEGIN
   );
 END;
 $$;
+
+CREATE OR REPLACE FUNCTION ex31c()
+RETURNS INTEGER
+LANGUAGE plpgsql
+AS
+$$
+BEGIN
+  RETURN (
+    SELECT salary
+    FROM instructor
+    WHERE salary >=all (
+      SELECT salary
+      FROM instructor
+    )
+  );
+END;
+$$;
