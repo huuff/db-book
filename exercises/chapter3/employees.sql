@@ -54,3 +54,22 @@ BEGIN
   );
 END;
 $$;
+
+CREATE OR REPLACE FUNCTION ex39d(search_company_name VARCHAR(25))
+RETURNS TABLE (id INTEGER)
+LANGUAGE plpgsql
+AS
+$$
+BEGIN
+  RETURN QUERY (
+    SELECT employee.id
+    FROM employee
+    JOIN works ON employee.id = works.id
+    WHERE works.salary >all (
+      SELECT works.salary
+      FROM ex39a(search_company_name) AS emp
+      JOIN works ON emp.id = works.id
+    )
+  );
+END;
+$$;
