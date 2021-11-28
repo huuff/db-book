@@ -96,3 +96,20 @@ BEGIN
   ); 
 END;
 $$;
+
+CREATE OR REPLACE FUNCTION ex31g(section_year NUMERIC(4, 0))
+RETURNS TABLE(
+  course_id VARCHAR(8),
+  sec_id VARCHAR(8)
+)
+LANGUAGE plpgsql
+AS
+$$
+BEGIN
+  RETURN QUERY(
+    SELECT section_enrollments.course_id, section_enrollments.sec_id
+    FROM ex31e(section_year) as section_enrollments
+    WHERE section_enrollments.enrollment = (SELECT ex31f(section_year))
+  );
+END;
+$$;
