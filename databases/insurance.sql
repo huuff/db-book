@@ -23,16 +23,16 @@ CREATE TABLE accident (
 );
 
 CREATE TABLE owns (
-  driver_id VARCHAR(5) REFERENCES person,
-  license_plate VARCHAR(10) REFERENCES car,
+  driver_id VARCHAR(5) REFERENCES person ON DELETE CASCADE,
+  license_plate VARCHAR(10) REFERENCES car ON DELETE CASCADE,
 
   PRIMARY KEY (driver_id, license_plate)
 );
 
 CREATE TABLE participated (
-  report_number VARCHAR(5) REFERENCES accident,
-  license_plate VARCHAR(10) REFERENCES car,
-  driver_id VARCHAR(5) REFERENCES person,
+  report_number VARCHAR(5) REFERENCES accident ON DELETE CASCADE,
+  license_plate VARCHAR(10) REFERENCES car ON DELETE CASCADE,
+  driver_id VARCHAR(5) REFERENCES person ON DELETE CASCADE,
   damage_amount NUMERIC(8, 2),
 
   PRIMARY KEY (report_number, license_plate)
