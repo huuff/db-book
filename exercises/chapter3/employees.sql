@@ -73,3 +73,10 @@ BEGIN
   );
 END;
 $$;
+
+-- I think 3.9.e is impossible. The company name is a primary key so we can't have more
+-- than one tuple in company with the same name, and thus we can't have more than city for the
+-- same company name. The exercise says 'assume' it is possible however, I'm not sure whether it means
+-- that it's possible with a different schema
+
+
