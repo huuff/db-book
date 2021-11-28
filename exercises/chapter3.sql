@@ -137,3 +137,20 @@ INSERT INTO grade_points (grade, points)
     ('E', 0.0),
     ('F', 0.0)
 ON CONFLICT (grade) DO NOTHING;
+
+CREATE OR REPLACE FUNCTION ex32a(student_id VARCHAR(5))
+RETURNS NUMERIC(3,1)
+LANGUAGE plpgsql
+AS
+$$
+BEGIN
+  RETURN (
+    SELECT SUM(course.credits * grade_points.points)
+    FROM student
+    JOIN takes ON takes.id = student.id
+    JOIN grade_points ON takes.grade = grade_points.grade
+    JOIN course ON course.course_id = takes.course_id
+    WHERE student.id = student_id
+  );
+END;
+$$;
