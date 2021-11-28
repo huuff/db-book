@@ -183,3 +183,14 @@ BEGIN
   );
 END;
 $$;
+
+INSERT INTO takes (id, course_id, sec_id, semester, year, grade)
+  WITH
+    first_section AS (SELECT * FROM section LIMIT 1),
+    first_student AS (SELECT * FROM student LIMIT 1)
+  SELECT first_student.id, first_section.course_id, first_section.sec_id, first_section.semester, first_section.year, NULL
+  FROM first_section, first_student
+ON CONFLICT (id, course_id, sec_id, semester, year) DO NOTHING;
+
+-- All of them work with aggregates, and since these just ignore nulls,
+-- they all work on nulls
