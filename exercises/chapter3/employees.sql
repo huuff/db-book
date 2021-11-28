@@ -79,4 +79,28 @@ $$;
 -- same company name. The exercise says 'assume' it is possible however, I'm not sure whether it means
 -- that it's possible with a different schema
 
-
+CREATE OR REPLACE FUNCTION ex39f()
+RETURNS TABLE (
+  company_name VARCHAR(25),
+  employees BIGINT
+)
+LANGUAGE plpgsql
+AS
+$$
+BEGIN
+  RETURN QUERY (
+    WITH companies_by_employees AS (
+      SELECT company.company_name, COUNT(works.id) as employees
+      FROM company
+      JOIN works ON company.company_name = works.company_name
+      GROUP BY company.company_name
+    )
+    SELECT cte.company_name, cte.employees
+    FROM companies_by_employees as cte
+    WHERE cte.employees >= (
+      SELECT MAX(inner_cte.employees)
+      FROM companies_by_employees as inner_cte
+    )
+  );
+END;
+$$;
