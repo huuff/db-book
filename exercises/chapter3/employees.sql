@@ -17,3 +17,22 @@ BEGIN
   );
 END;
 $$;
+
+CREATE OR REPLACE FUNCTION ex39b(search_company_name VARCHAR(25))
+RETURNS TABLE (
+  id INTEGER,
+  person_name VARCHAR(25),
+  city VARCHAR(25)
+)
+LANGUAGE plpgsql
+AS
+$$
+BEGIN
+    RETURN QUERY (
+      SELECT emp.id, emp.person_name, emp.city
+      FROM ex39a(search_company_name) as emp
+      JOIN works ON emp.id = works.id
+      WHERE works.salary > 10000
+    );
+END;
+$$;
