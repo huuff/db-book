@@ -194,3 +194,42 @@ ON CONFLICT (id, course_id, sec_id, semester, year) DO NOTHING;
 
 -- All of them work with aggregates, and since these just ignore nulls,
 -- they all work on nulls
+
+CREATE OR REPLACE PROCEDURE ex33a()
+LANGUAGE plpgsql
+AS
+$$
+BEGIN
+    UPDATE instructor
+    SET salary = salary * 1.1
+    WHERE dept_name = 'Comp. Sci.'
+    ;
+END;
+$$;
+
+-- TODO: Ugly and with repetition --
+CREATE OR REPLACE PROCEDURE ex33b()
+LANGUAGE plpgsql
+AS
+$$
+BEGIN
+  WITH unoffered_courses AS (
+    SELECT course.course_id
+    FROM course
+    WHERE course.course_id NOT IN (SELECT course_id FROM section)
+  )
+  DELETE FROM prereq
+  WHERE 
+    (course_id IN (SELECT * FROM unoffered_courses)) 
+  OR 
+    (prereq_id IN (SELECT * FROM unoffered_courses)); 
+
+  WITH unoffered_courses AS (
+    SELECT course.course_id
+    FROM course
+    WHERE course.course_id NOT IN (SELECT course_id FROM section)
+  )
+  DELETE FROM course
+  WHERE course_id IN (SELECT * FROM unoffered_courses);
+END;
+$$;
