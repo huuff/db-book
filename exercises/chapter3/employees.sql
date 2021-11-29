@@ -127,3 +127,31 @@ BEGIN
   );
 END;
 $$;
+
+CREATE OR REPLACE PROCEDURE ex310a()
+LANGUAGE plpgsql
+AS
+$$
+BEGIN
+  UPDATE employee
+  SET city = 'Newton'
+  WHERE employee.id = '12345';
+END;
+$$;
+
+CREATE OR REPLACE PROCEDURE ex310b()
+LANGUAGE plpgsql
+AS
+$$
+BEGIN
+  UPDATE works
+  SET works.salary = CASE
+    WHEN works.salary * 1.1 <= 100000 THEN works.salary * 1.1
+    ELSE works.salary * 1.03
+  END
+  WHERE EXISTS (
+    SELECT manages.manager_id
+    WHERE manages.manager_id = works.id
+  );
+END;
+$$;
