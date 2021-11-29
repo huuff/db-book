@@ -104,3 +104,26 @@ BEGIN
   );
 END;
 $$;
+
+CREATE OR REPLACE FUNCTION ex39g(search_company_name VARCHAR(25))
+RETURNS TABLE (
+  company_name VARCHAR(25)
+)
+LANGUAGE plpgsql
+AS
+$$
+BEGIN
+  RETURN QUERY (
+    SELECT company.company_name
+    FROM company
+    JOIN works ON company.company_name = works.company_name
+    GROUP BY company.company_name
+    HAVING AVG(works.salary) > (
+      SELECT AVG(_works.salary)
+      FROM company AS _company
+      JOIN works AS _works ON _company.company_name = _works.company_name
+      WHERE _company.company_name = search_company_name
+    )
+  );
+END;
+$$;

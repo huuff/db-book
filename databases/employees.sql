@@ -21,7 +21,7 @@ CREATE TABLE works(
   salary NUMERIC(10, 2)
 );
 
--- The ordering of the attributes suggest that managed_by is a better name?
+-- The ordering of the attributes suggests that managed_by is a better name?
 CREATE TABLE manages(
   id INTEGER PRIMARY KEY REFERENCES employee,
   manager_id INTEGER REFERENCES employee
