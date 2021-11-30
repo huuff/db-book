@@ -36,7 +36,7 @@ BEGIN
 END;
 $$;
 
-CREATE OR REPLACE FUNCTION ex42c()
+CREATE OR REPLACE FUNCTION ex42c(search_semester VARCHAR(6), search_year numeric(4,0))
 RETURNS TABLE (
   title VARCHAR(50),
   sec_id VARCHAR(8),
@@ -48,12 +48,12 @@ AS
 $$
 BEGIN
   RETURN QUERY(
-    SELECT course.title, section.sec_id, instructor.id, instructor.name
+    SELECT course.title, section.sec_id, instructor.id, COALESCE(instructor.name, '-')
     FROM section
-    NATURAL JOIN teaches
+    NATURAL LEFT OUTER JOIN teaches
     NATURAL JOIN instructor
     JOIN course ON section.course_id = course.course_id
-    WHERE section.semester = 'Spring' AND section.year = '2008'
+    WHERE section.semester = search_semester AND section.year = search_year
   );
 END;
 $$;
@@ -75,3 +75,23 @@ BEGIN
   );
 END;
 $$;
+
+-- CREATE OR REPLACE FUNCTION ex43a()
+-- RETURNS TABLE (
+  -- id VARCHAR(5),
+  -- name VARCHAR(20),
+  -- dept_name VARCHAR(20),
+  -- tot_cred NUMERIC(3, 0),
+  -- course_id VARCHAR(8),
+  -- sec_id VARCHAR(8),
+  -- semester VARCHAR(6),
+  -- year NUMERIC(4, 0),
+  -- grade VARCHAR(2)
+-- )
+-- LANGUAGE plpgsql
+-- AS
+-- $$
+-- BEGIN
+  
+-- END;
+-- $$;
