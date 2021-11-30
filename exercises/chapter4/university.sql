@@ -15,3 +15,23 @@ BEGIN
   );
 END;
 $$;
+
+CREATE OR REPLACE FUNCTION ex42b()
+RETURNS TABLE (
+  id VARCHAR(5),
+  taught_sections BIGINT
+)
+LANGUAGE plpgsql
+AS
+$$
+BEGIN
+  RETURN QUERY(
+    SELECT instructor.id, (
+      SELECT count(*)
+      FROM teaches
+      WHERE teaches.id = instructor.id
+    ) as taught_sections
+    FROM instructor
+  );
+END;
+$$;
