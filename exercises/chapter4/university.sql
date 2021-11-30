@@ -76,22 +76,31 @@ BEGIN
 END;
 $$;
 
--- CREATE OR REPLACE FUNCTION ex43a()
--- RETURNS TABLE (
-  -- id VARCHAR(5),
-  -- name VARCHAR(20),
-  -- dept_name VARCHAR(20),
-  -- tot_cred NUMERIC(3, 0),
-  -- course_id VARCHAR(8),
-  -- sec_id VARCHAR(8),
-  -- semester VARCHAR(6),
-  -- year NUMERIC(4, 0),
-  -- grade VARCHAR(2)
--- )
--- LANGUAGE plpgsql
--- AS
--- $$
--- BEGIN
-  
--- END;
--- $$;
+CREATE OR REPLACE FUNCTION ex43a()
+RETURNS TABLE (
+  id VARCHAR(5),
+  name VARCHAR(20),
+  dept_name VARCHAR(20),
+  tot_cred NUMERIC(3, 0),
+  course_id VARCHAR(8),
+  sec_id VARCHAR(8),
+  semester VARCHAR(6),
+  year NUMERIC(4, 0),
+  grade VARCHAR(2)
+)
+LANGUAGE plpgsql
+AS
+$$
+BEGIN
+ RETURN QUERY (
+ (SELECT * FROM student NATURAL JOIN takes)
+  UNION ALL
+ (SELECT *, NULL, NULL, NULL, NULL, NULL
+  FROM student s
+  WHERE NOT EXISTS (
+      SELECT * FROM takes t WHERE t.id = s.id
+    )
+  )
+);
+END;
+$$;
