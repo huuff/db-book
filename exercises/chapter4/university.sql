@@ -35,3 +35,25 @@ BEGIN
   );
 END;
 $$;
+
+CREATE OR REPLACE FUNCTION ex42c()
+RETURNS TABLE (
+  title VARCHAR(50),
+  sec_id VARCHAR(8),
+  id VARCHAR(5),
+  name VARCHAR(20)
+)
+LANGUAGE plpgsql
+AS
+$$
+BEGIN
+  RETURN QUERY(
+    SELECT course.title, section.sec_id, instructor.id, instructor.name
+    FROM section
+    NATURAL JOIN teaches
+    NATURAL JOIN instructor
+    JOIN course ON section.course_id = course.course_id
+    WHERE section.semester = 'Spring' AND section.year = '2008'
+  );
+END;
+$$;
