@@ -57,3 +57,21 @@ BEGIN
   );
 END;
 $$;
+
+CREATE OR REPLACE FUNCTION ex42d()
+RETURNS TABLE (
+  dept_name VARCHAR(20),
+  instructor_count BIGINT
+)
+LANGUAGE plpgsql
+AS
+$$
+BEGIN
+  RETURN QUERY (
+    SELECT department.dept_name, COUNT(instructor.id) AS instructor_count
+    FROM department
+    NATURAL LEFT OUTER JOIN instructor
+    GROUP BY department.dept_name
+  );
+END;
+$$;
