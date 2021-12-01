@@ -39,3 +39,33 @@ In the given case, if there are no matches, then `C` and `D` are null. Therefore
 * Both `C` and `D` null
 
 So no, it's not possible.
+
+## 4.5
+### a)
+The specification of the query asked to retrieve the courses each instructor taught.
+
+One example could be
+
+#### Instructor
+id|name|dept_name|salary
+--|----|---------|------
+1 |mike|History  |1
+
+#### Course
+course_id|title|dept_name|credits
+---------|-----|---------|-------
+1        |C1   |History  |1
+2        |C2   |Robotics |1
+
+#### Teaches
+id|course_id|sec_id|semester|year
+--|---------|------|--------|----
+1 |1        |1     |'Spring'|2021
+1 |2        |1     |'Spring'|2021
+
+#### The join
+id|name|dept_name|salary|course_id|title|credits|sec_id|semester|year
+--|----|---------|------|---------|-----|-------|------|--------|----
+1 |mike|History  |1     |1        |C1   |1      |1     |'Spring'|2021
+
+Thus, the query doesn't show that Mike also teaches Robotics because it isn't a course from his department
