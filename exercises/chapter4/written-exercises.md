@@ -99,3 +99,6 @@ Se we have no way to test that our queries that retrieve all students with the c
 
 ### c)
 Isn't this literaly the exact same question as in the previous one?
+
+## 4.9
+When deleting a tuple, the tuple that references it is removed also, and also those that reference it, and thus until there are no more tuples in the chain. Just like the `REVOKE` example.
