@@ -213,4 +213,37 @@ BEGIN
 END;
 $$;
 
-CREATE VIEW ex46 AS SELECT * FROM ex32c();
+CREATE OR REPLACE VIEW ex46 AS SELECT * FROM ex32c();
+
+CREATE OR REPLACE FUNCTION ex48a()
+RETURNS TABLE (
+  id VARCHAR(5),
+  sec_id VARCHAR(8),
+  semester VARCHAR(6),
+  year NUMERIC(4,0)
+)
+LANGUAGE plpgsql
+AS
+$$
+BEGIN
+  RETURN QUERY(
+    SELECT i1.id, s1.sec_id, s1.semester, s1.year
+    FROM instructor i1
+    NATURAL JOIN teaches t1
+    NATURAL JOIN section s1
+    NATURAL JOIN classroom c1
+    WHERE EXISTS(
+      SELECT *
+      FROM instructor i2
+      NATURAL JOIN teaches t2
+      NATURAL JOIN section s2
+      NATURAL JOIN classroom c2
+      WHERE i1.id = i2.id 
+      AND s1.semester = s2.semester
+      AND s1.time_slot_id = s2.time_slot_id
+      AND s1.year = s2.year
+      AND c1.building != c2.building
+    )
+  );
+END;
+$$;
