@@ -102,3 +102,10 @@ Isn't this literaly the exact same question as in the previous one?
 
 ## 4.9
 When deleting a tuple, the tuple that references it is removed also, and also those that reference it, and thus until there are no more tuples in the chain. Just like the `REVOKE` example.
+
+## 4.10
+```sql
+SELECT COALESCE(a.name, b.name), COALESCE(a.address, b.address), a.title, b.salary
+FROM a
+FULL OUTER JOIN b ON a.name = b.name AND a.address = b.address;
+```
