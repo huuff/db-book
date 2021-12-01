@@ -96,3 +96,6 @@ SELECT * FROM student
 ```
 
 Se we have no way to test that our queries that retrieve all students with the courses they take (and still show the students that take no courses) work.
+
+### c)
+Isn't this literaly the exact same question as in the previous one?
