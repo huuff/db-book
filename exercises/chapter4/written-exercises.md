@@ -113,4 +113,9 @@ FULL OUTER JOIN b ON a.name = b.name AND a.address = b.address;
 ## 4.11
 Real weird question. I think maybe file ownership makes for all that `WITH GRANT OPTION` stuff? I guess the difference resides in the fact that databases have 3 type of write operations (`INSERT`, `DELETE` and `UPDATE`) so I guess that it might be useful for allowing a user only to append info to the database.
 
+## 4.12
+In case that user might be deleted in the future, the grant is intended to be associated with a role and not with a specific user.
 
+## 4.13
+a) No, we've seen examples where it wasn't needed to grant select on the whole relation, so the user can only see part of it
+b) No, because we might not want that user to be able to update certain columns.
