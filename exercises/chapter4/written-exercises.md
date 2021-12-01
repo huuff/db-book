@@ -29,3 +29,13 @@ t|B|D
  ---------------------------------------------------------|-|-|-|-
                                                           |1|1|X|1
                                                           |2|2|X|2
+
+### b)
+Since it's a `left outer join`, the innermost join ALWAYS has a value for `C` because it's on the left side. This value will get carried over to any subsequent join (if there are matches).  
+
+In the given case, if there are no matches, then `C` and `D` are null. Therefore the only possibilities are:
+
+* `C` nonnull
+* Both `C` and `D` null
+
+So no, it's not possible.
