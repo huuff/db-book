@@ -247,3 +247,6 @@ BEGIN
   );
 END;
 $$;
+
+-- 4.8.b
+-- CREATE ASSERTION no_clone_instructors CHECK (SELECT * FROM ex48a())
