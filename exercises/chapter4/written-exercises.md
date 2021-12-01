@@ -112,3 +112,5 @@ FULL OUTER JOIN b ON a.name = b.name AND a.address = b.address;
 
 ## 4.11
 Real weird question. I think maybe file ownership makes for all that `WITH GRANT OPTION` stuff? I guess the difference resides in the fact that databases have 3 type of write operations (`INSERT`, `DELETE` and `UPDATE`) so I guess that it might be useful for allowing a user only to append info to the database.
+
+
