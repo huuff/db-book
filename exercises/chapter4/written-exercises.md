@@ -69,3 +69,30 @@ id|name|dept_name|salary|course_id|title|credits|sec_id|semester|year
 1 |mike|History  |1     |1        |C1   |1      |1     |'Spring'|2021
 
 Thus, the query doesn't show that Mike also teaches Robotics because it isn't a course from his department
+
+### b)
+I guess it's so that we can test that outer joins work correctly. If there is a row in `takes` for every course and student,
+
+```sql
+SELECT * FROM student
+  JOIN takes ON takes.id = student.id
+  JOIN course ON takes.course_id = course.course_id
+```
+
+Gives the same result as 
+
+```sql
+SELECT * FROM student
+  LEFT OUTER JOIN takes ON takes.id = student.id
+  JOIN course ON takes.course_id = course.course_id
+```
+
+Or
+
+```sql
+SELECT * FROM student
+  JOIN takes ON takes.id = student.id
+  RIGHT OUTER JOIN course ON takes.course_id = course.course_id
+```
+
+Se we have no way to test that our queries that retrieve all students with the courses they take (and still show the students that take no courses) work.
