@@ -9,24 +9,25 @@ public class Exercise2 {
 
     @Test
     void exercise2() throws Exception {
-        var connection = DriverManager.getConnection("jdbc:postgresql://db-book/db_book", "postgres", "");
+        try (var connection = DriverManager.getConnection("jdbc:postgresql://db-book/db_book", "postgres", "")) {
 
-        var stmt = connection.createStatement();
-        var resultSet = stmt.executeQuery("SELECT * FROM student");
+            var stmt = connection.createStatement();
+            var resultSet = stmt.executeQuery("SELECT * FROM student");
 
-        var columns = new ArrayList<String>();
-        for (int i = 1; i <= resultSet.getMetaData().getColumnCount(); i++) {
-            columns.add(resultSet.getMetaData().getColumnName(i));
-        }
-        System.out.println(String.join("|", columns));
-        System.out.println("----------------------------------------");
-
-        while (resultSet.next()) {
-            var row = new ArrayList<String>();
+            var columns = new ArrayList<String>();
             for (int i = 1; i <= resultSet.getMetaData().getColumnCount(); i++) {
-                row.add(resultSet.getString(i));
+                columns.add(resultSet.getMetaData().getColumnName(i));
             }
-            System.out.println(String.join("|", row));
+            System.out.println(String.join("|", columns));
+            System.out.println("----------------------------------------");
+
+            while (resultSet.next()) {
+                var row = new ArrayList<String>();
+                for (int i = 1; i <= resultSet.getMetaData().getColumnCount(); i++) {
+                    row.add(resultSet.getString(i));
+                }
+                System.out.println(String.join("|", row));
+            }
         }
     }
 }
