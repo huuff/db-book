@@ -35,7 +35,7 @@ CREATE OR REPLACE VIEW ex59 AS (
 );
 
 CREATE OR REPLACE VIEW ex510 AS (
-  SELECT year, month, day, SUM(shares_traded) FROM nyse
+  SELECT year, month, day, SUM(shares_traded) as shares_traded, SUM(dollar_volume) as dollar_volume FROM nyse
   GROUP BY ROLLUP(year, month, day)
   ORDER BY year DESC
 );
