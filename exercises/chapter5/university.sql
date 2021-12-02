@@ -56,3 +56,84 @@ CREATE TRIGGER ex55 BEFORE UPDATE OR INSERT
 ON section
 EXECUTE PROCEDURE no_clones();
 
+-- I'll do 5.8 using 3.2
+
+CREATE TABLE IF NOT EXISTS grade_points(
+  grade VARCHAR(2) NOT NULL,
+  points NUMERIC(3, 1) NOT NULL,
+
+  PRIMARY KEY (grade)
+);
+
+INSERT INTO grade_points (grade, points)
+  VALUES
+    ('A+', 4.0),
+    ('A', 4.0),
+    ('A-', 3.7),
+    ('B+', 3.3),
+    ('B', 3.0),
+    ('B-', 2.7),
+    ('C+', 2.3),
+    ('C', 2.0),
+    ('C-', 1.7),
+    ('D+', 1.3),
+    ('D', 1.0),
+    ('E', 0.0),
+    ('F', 0.0)
+ON CONFLICT (grade) DO NOTHING;
+
+CREATE OR REPLACE FUNCTION ex32a(student_id VARCHAR(5))
+RETURNS NUMERIC(4,1)
+LANGUAGE plpgsql
+AS
+$$
+BEGIN
+  RETURN (
+    SELECT SUM(course.credits * grade_points.points)
+    FROM student
+    JOIN takes ON takes.id = student.id
+    JOIN grade_points ON takes.grade = grade_points.grade
+    JOIN course ON course.course_id = takes.course_id
+    WHERE student.id = student_id
+  );
+END;
+$$;
+
+CREATE OR REPLACE FUNCTION ex32b(student_id VARCHAR(5))
+RETURNS NUMERIC(2,1)
+LANGUAGE plpgsql
+AS
+$$
+BEGIN
+  RETURN (
+    SELECT ex32a(student_id) / SUM(course.credits)
+    FROM student
+    JOIN takes ON student.id = takes.id
+    JOIN course ON course.course_id = takes.course_id
+    WHERE student.id = student_id
+  );
+END;
+$$;
+
+CREATE OR REPLACE FUNCTION ex32c()
+RETURNS TABLE(student_id VARCHAR(5), gpa NUMERIC(2,1))
+LANGUAGE plpgsql
+AS
+$$
+BEGIN
+  RETURN QUERY(
+    SELECT student.id, ex32b(student.id)
+    FROM student
+  );
+END;
+$$;
+
+CREATE OR REPLACE VIEW ex58 AS (
+  WITH ranked(student_id, rank, gpa) AS ( 
+    SELECT student_id, RANK() OVER(ORDER BY gpa DESC) as s_rank, gpa
+    FROM ex32c()
+  )
+  SELECT *
+  FROM ranked
+  WHERE rank <= 10
+);
