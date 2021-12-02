@@ -2,10 +2,10 @@ package xyz.haff.dbbook;
 
 import org.junit.jupiter.api.Test;
 
-import java.sql.*;
+import java.sql.DriverManager;
 import java.util.ArrayList;
 
-public class Exercises {
+public class Exercise2 {
 
     @Test
     void exercise2() throws Exception {
