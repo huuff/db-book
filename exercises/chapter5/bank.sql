@@ -25,3 +25,27 @@ EXECUTE PROCEDURE refresh_branch_cust();
 CREATE TRIGGER ex56 BEFORE INSERT
 ON account
 EXECUTE PROCEDURE refresh_branch_cust();
+
+-- Also reworked to work with my current schema
+CREATE OR REPLACE FUNCTION delete_orphan_depositors(deleted_account VARCHAR(5))
+RETURNS VOID
+LANGUAGE plpgsql
+AS
+$$
+BEGIN
+  INSERT INTO other_account_depositors
+  SELECT depositor.id
+  FROM depositor
+  WHERE depositor.account_number = deleted_account;
+
+  INSERT INTO without_outer_accounts
+  SELECT depositor.id
+  FROM depositor
+  LEFT JOIN account ON depositor.account_number = account.account_number
+  WHERE depositor.id IN (SELECT * FROM other_account_depositors)
+  AND account.account_number IS NULL;
+
+  DELETE FROM depositor
+  WHERE depositor.id IN (SELECT * FROM without_other_accounts);
+END;
+$$;
