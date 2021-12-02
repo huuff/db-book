@@ -26,10 +26,16 @@ END;
 $$;
 
 CREATE OR REPLACE VIEW ex59 AS (
-  WITH ranked(year, month, day, rank, shares_traded) AS (
-    SELECT year, month, day, RANK() OVER (ORDER BY shares_traded DESC) AS rank, shares_traded
+  WITH ranked(year, month, day, rank, shares_tradedi, dollar_volume) AS (
+    SELECT year, month, day, RANK() OVER (ORDER BY shares_traded DESC) AS rank, shares_traded, dollar_volume
     FROM nyse
   )
   SELECT *
   FROM ranked
+);
+
+CREATE OR REPLACE VIEW ex510 AS (
+  SELECT year, month, day, SUM(shares_traded) FROM nyse
+  GROUP BY ROLLUP(year, month, day)
+  ORDER BY year DESC
 );
