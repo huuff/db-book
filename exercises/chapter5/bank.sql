@@ -49,3 +49,14 @@ BEGIN
   WHERE depositor.id IN (SELECT * FROM without_other_accounts);
 END;
 $$;
+
+CREATE OR REPLACE FUNCTION ex57trigger() RETURNS TRIGGER AS $$
+  BEGIN
+    SELECT * FROM delete_orphan_depositors(OLD.account_number); 
+  END;
+$$ LANGUAGE plpgsql;
+
+DROP TRIGGER IF EXISTS ex57 ON "account";
+CREATE TRIGGER ex57 AFTER DELETE
+ON account
+EXECUTE PROCEDURE ex57trigger();
