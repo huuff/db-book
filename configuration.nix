@@ -54,7 +54,7 @@ in {
       wantedBy = [ "multi-user.target" ];
 
       script = ''
-        psql -U postgres -d 'university' -f ${./DDL.sql}
+        psql -U postgres -d 'university' -f ${./databases/university.sql}
         psql -U postgres -d 'university' -f ${largeDataset}
       '';
     };

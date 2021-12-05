@@ -1,0 +1,84 @@
+databaseChangeLog:
+  - changeSet:
+      id: 4
+      author: haf
+      changes:
+        - createTable:
+            catalogName: employees
+            tableName: employee
+            columns:
+              - column:
+                  name: id
+                  type: integer
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: person_name
+                  type: varchar(25)
+              - column:
+                  name: street
+                  type: varchar(25)
+              - column:
+                  name: city
+                  type: varchar(25)
+        - createTable:
+            catalogName: employees
+            tableName: company
+            columns:
+              - column:
+                  name: company_name
+                  type: varchar(25)
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: city
+                  type: varchar(25)
+        - createTable:
+            catalogName: employees
+            tableName: works
+            columns:
+              - column:
+                  name: id
+                  type: integer
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: company_name
+                  type: varchar(25)
+              - column:
+                  name: salary
+                  type: numeric(10, 2)
+        - addForeignKeyConstraint:
+            catalogName: employees
+            constraintName: works_for_company_fk
+            baseTableName: works
+            baseColumnNames: company_name
+            referencedTableName: company
+            referencedColumnNames: company_name
+        - createTable:
+            catalogName: employees
+            tableName: manages
+            columns:
+              - column:
+                  name: id
+                  type: integer
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: manager_id
+                  type: integer
+        - addForeignKeyConstraint:
+            catalogName: employees
+            constraintName: managed_employee_fk
+            baseTableName: manages
+            baseColumnNames: id
+            referencedTableName: employee
+            referencedColumnNames: id
+        - addForeignKeyConstraint:
+            catalogName: employees
+            constraintName: manager_employee_fk
+            baseTableName: manages
+            baseColumnNames: manager_id
+            referencedTableName: employee
+            referencedColumnNames: id
+                
