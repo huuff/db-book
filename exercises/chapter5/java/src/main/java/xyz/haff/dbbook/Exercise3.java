@@ -36,7 +36,7 @@ public class Exercise3 {
     }
 
     public static void main(String... args) throws Exception {
-        try (var connection = DriverManager.getConnection("jdbc:postgresql://db-book/db_book", "postgres", "")) {
+        try (var connection = DriverManager.getConnection("jdbc:postgresql://db-book/university", "postgres", "")) {
 
             System.out.println("Enter the ID of the course to check:");
             var courseToCheck = new Scanner(System.in).next();

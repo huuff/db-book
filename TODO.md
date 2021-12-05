@@ -6,4 +6,3 @@
   * Then feed these into the DB
   * Arguably a lot of work but I really want to test performance of different queries and I fear the given dataset is not big enough
   * Honestly I don't care much about this anymore
-* `db_book` should be called `university`. Maybe deploy changes using liquibase?

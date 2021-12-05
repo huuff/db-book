@@ -20,7 +20,7 @@ in {
     '';
 
     ensureDatabases = [ 
-      "db_book" # TODO Should be university (obviously also correct the systemd unit)
+      "university" 
       "insurance"
       "bank"
       "employees"
@@ -54,8 +54,8 @@ in {
       wantedBy = [ "multi-user.target" ];
 
       script = ''
-        psql -U postgres -d 'db_book' -f ${./DDL.sql}
-        psql -U postgres -d 'db_book' -f ${largeDataset}
+        psql -U postgres -d 'university' -f ${./DDL.sql}
+        psql -U postgres -d 'university' -f ${largeDataset}
       '';
     };
   };

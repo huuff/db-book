@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-pgcli -h db-book -U postgres -d db_book
+pgcli -h db-book -U postgres -d university
