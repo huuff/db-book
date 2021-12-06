@@ -60,3 +60,28 @@ erDiagram
   student ||--o| mark : received
   section ||--o| mark : in
 ```
+
+## 6.3
+```mermaid
+erDiagram
+  match {
+    date match_date
+  }
+
+  score {
+    numeric home_score
+    numeric away_score
+  }
+
+  player {
+    string name
+  }
+
+  match ||--|| score : result
+  match }o--|{ player : played
+```
+
+Can't do derived attributes with mermaid but don't think these matter too much for the substance of this chapter.
+
+## 6.4
+The maintenance costs of having to update each occurrence whenever there's a change are higher, and also the possibility of one occurrence not being updated sneaks in, thus causing inconsistencies.
