@@ -1,16 +1,162 @@
 {
   "nodes": {
-    "nixpkgs": {
+    "ema": {
+      "inputs": {
+        "flake-compat": "flake-compat",
+        "flake-utils": "flake-utils",
+        "nixpkgs": "nixpkgs",
+        "unionmount": "unionmount"
+      },
       "locked": {
-        "lastModified": 1637841632,
-        "narHash": "sha256-QYqiKHdda0EOnLGQCHE+GluD/Lq2EJj4hVTooPM55Ic=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "73369f8d0864854d1acfa7f1e6217f7d6b6e3fa1",
+        "lastModified": 1638741847,
+        "narHash": "sha256-a5OU2gNnwi7VvPEb8rO+l+VN98lnyfdxpLKTLpgwLqs=",
+        "owner": "srid",
+        "repo": "ema",
+        "rev": "ad884e4b7c8a711751850dce0d7ea8c5f22466de",
         "type": "github"
       },
       "original": {
-        "owner": "NixOS",
+        "owner": "srid",
+        "ref": "master",
+        "repo": "ema",
+        "type": "github"
+      }
+    },
+    "emanote": {
+      "inputs": {
+        "ema": "ema",
+        "flake-compat": "flake-compat_2",
+        "flake-utils": "flake-utils_2",
+        "heist": "heist",
+        "nixpkgs": [
+          "emanote",
+          "ema",
+          "nixpkgs"
+        ],
+        "tagtree": "tagtree",
+        "windicss": "windicss"
+      },
+      "locked": {
+        "lastModified": 1638742795,
+        "narHash": "sha256-2o0k+vNMec0d0E2EkXoqPr/ywqLt5XJUJNTOPC65w2A=",
+        "owner": "srid",
+        "repo": "emanote",
+        "rev": "526e81c8e297ecb7a6e94add5cc3472117138438",
+        "type": "github"
+      },
+      "original": {
+        "owner": "srid",
+        "ref": "master",
+        "repo": "emanote",
+        "type": "github"
+      }
+    },
+    "flake-compat": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1606424373,
+        "narHash": "sha256-oq8d4//CJOrVj+EcOaSXvMebvuTkmBJuT5tzlfewUnQ=",
+        "owner": "edolstra",
+        "repo": "flake-compat",
+        "rev": "99f1c2157fba4bfe6211a321fd0ee43199025dbf",
+        "type": "github"
+      },
+      "original": {
+        "owner": "edolstra",
+        "repo": "flake-compat",
+        "type": "github"
+      }
+    },
+    "flake-compat_2": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1627913399,
+        "narHash": "sha256-hY8g6H2KFL8ownSiFeMOjwPC8P0ueXpCVEbxgda3pko=",
+        "owner": "edolstra",
+        "repo": "flake-compat",
+        "rev": "12c64ca55c1014cdc1b16ed5a804aa8576601ff2",
+        "type": "github"
+      },
+      "original": {
+        "owner": "edolstra",
+        "repo": "flake-compat",
+        "type": "github"
+      }
+    },
+    "flake-utils": {
+      "locked": {
+        "lastModified": 1618217525,
+        "narHash": "sha256-WGrhVczjXTiswQaoxQ+0PTfbLNeOQM6M36zvLn78AYg=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "c6169a2772643c4a93a0b5ac1c61e296cba68544",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "type": "github"
+      }
+    },
+    "flake-utils_2": {
+      "locked": {
+        "lastModified": 1623875721,
+        "narHash": "sha256-A8BU7bjS5GirpAUv4QA+QnJ4CceLHkcXdRp4xITDB0s=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "f7e004a55b120c02ecb6219596820fcd32ca8772",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "type": "github"
+      }
+    },
+    "heist": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1624205223,
+        "narHash": "sha256-+bcrEKjB/kDRAqOunCD/cKBBVOJUTmY9RoCQ++I42oM=",
+        "owner": "srid",
+        "repo": "heist",
+        "rev": "a8be6f93656f87199e03b9dfb9979dc061614108",
+        "type": "github"
+      },
+      "original": {
+        "owner": "srid",
+        "ref": "emanote",
+        "repo": "heist",
+        "type": "github"
+      }
+    },
+    "nixpkgs": {
+      "locked": {
+        "lastModified": 1638553308,
+        "narHash": "sha256-qlHRqp+7gJj+LUNfEl01M9xHQoX2Bx4e1ha/nssXSo8=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "2df15ba83d0510a56f2583fd3481723835acb5a1",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "2df15ba83d0510a56f2583fd3481723835acb5a1",
+        "type": "github"
+      }
+    },
+    "nixpkgs_2": {
+      "locked": {
+        "lastModified": 1638535497,
+        "narHash": "sha256-tk5LNbdkUhALp00+r5ZmQ3t7n2d5M7YUQB+MznWvVOg=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "c71f061c68ba8ce53471b767d5049cbd0f3d8490",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
         "ref": "nixos-unstable",
         "repo": "nixpkgs",
         "type": "github"
@@ -18,7 +164,56 @@
     },
     "root": {
       "inputs": {
-        "nixpkgs": "nixpkgs"
+        "emanote": "emanote",
+        "nixpkgs": "nixpkgs_2"
+      }
+    },
+    "tagtree": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1624654230,
+        "narHash": "sha256-/oMuPj360ZAXFJwTwoDFKKwn5jfIbsl7+IBPDFv5oEE=",
+        "owner": "srid",
+        "repo": "tagtree",
+        "rev": "667c5a5073eddb8ddd875726b1fb6c41e09f0591",
+        "type": "github"
+      },
+      "original": {
+        "owner": "srid",
+        "repo": "tagtree",
+        "type": "github"
+      }
+    },
+    "unionmount": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1637534484,
+        "narHash": "sha256-EZt8lPv3BgTT7gYHKStOYd6PK2vAk8DeSFoZfJ7O/U4=",
+        "owner": "srid",
+        "repo": "unionmount",
+        "rev": "e1840972d2cccc5e4ce2619d235f690316f2c992",
+        "type": "github"
+      },
+      "original": {
+        "owner": "srid",
+        "repo": "unionmount",
+        "type": "github"
+      }
+    },
+    "windicss": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1625250934,
+        "narHash": "sha256-iIhdu7uez4F57VUW6Rj3dP1vPOeKTl+kp8qo4aIyH8g=",
+        "owner": "srid",
+        "repo": "windicss-nix",
+        "rev": "d96ae0137d56fffa62e53a1815d318cd5f37c987",
+        "type": "github"
+      },
+      "original": {
+        "owner": "srid",
+        "repo": "windicss-nix",
+        "type": "github"
       }
     }
   },
