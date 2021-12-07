@@ -3,8 +3,11 @@ databaseChangeLog:
       id: 4
       author: haf
       changes:
+        - sql: 
+            endDelimiter: ;
+            sql: CREATE SCHEMA employees
         - createTable:
-            catalogName: employees
+            schemaName: employees
             tableName: employee
             columns:
               - column:
@@ -22,7 +25,7 @@ databaseChangeLog:
                   name: city
                   type: varchar(25)
         - createTable:
-            catalogName: employees
+            schemaName: employees
             tableName: company
             columns:
               - column:
@@ -34,7 +37,7 @@ databaseChangeLog:
                   name: city
                   type: varchar(25)
         - createTable:
-            catalogName: employees
+            schemaName: employees
             tableName: works
             columns:
               - column:
@@ -49,14 +52,15 @@ databaseChangeLog:
                   name: salary
                   type: numeric(10, 2)
         - addForeignKeyConstraint:
-            catalogName: employees
+            baseTableSchemaName: employees
+            referencedTableSchemaName: employees
             constraintName: works_for_company_fk
             baseTableName: works
             baseColumnNames: company_name
             referencedTableName: company
             referencedColumnNames: company_name
         - createTable:
-            catalogName: employees
+            schemaName: employees
             tableName: manages
             columns:
               - column:
@@ -68,14 +72,16 @@ databaseChangeLog:
                   name: manager_id
                   type: integer
         - addForeignKeyConstraint:
-            catalogName: employees
+            baseTableSchemaName: employees
+            referencedTableSchemaName: employees
             constraintName: managed_employee_fk
             baseTableName: manages
             baseColumnNames: id
             referencedTableName: employee
             referencedColumnNames: id
         - addForeignKeyConstraint:
-            catalogName: employees
+            baseTableSchemaName: employees
+            referencedTableSchemaName: employees
             constraintName: manager_employee_fk
             baseTableName: manages
             baseColumnNames: manager_id

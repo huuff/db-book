@@ -20,6 +20,7 @@ in {
     '';
 
     ensureDatabases = [ 
+      "exercises"
       "university" 
       "insurance"
       "bank"
@@ -54,8 +55,8 @@ in {
       wantedBy = [ "multi-user.target" ];
 
       script = ''
-        psql -U postgres -d 'university' -f ${./databases/university.sql}
-        psql -U postgres -d 'university' -f ${largeDataset}
+        psql -U postgres -d 'exercises' -f ${./databases/university.sql}
+        psql -U postgres -d 'exercises' -f ${largeDataset}
       '';
     };
   };

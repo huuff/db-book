@@ -9,7 +9,7 @@ public class Exercise2 {
 
     @Test
     void exercise2() throws Exception {
-        try (var connection = DriverManager.getConnection("jdbc:postgresql://db-book/university", "postgres", "")) {
+        try (var connection = DriverManager.getConnection("jdbc:postgresql://db-book/exercises", "postgres", "")) {
 
             var stmt = connection.createStatement();
             var resultSet = stmt.executeQuery("SELECT * FROM student");

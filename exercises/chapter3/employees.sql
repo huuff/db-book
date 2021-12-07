@@ -1,3 +1,5 @@
+SET search_path TO employees;
+
 CREATE OR REPLACE FUNCTION ex39a(search_company_name VARCHAR(25))
 RETURNS TABLE (
   id INTEGER,
