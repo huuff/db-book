@@ -51,17 +51,12 @@ databaseChangeLog:
               - column:
                   name: branch_name
                   type: varchar(25)
+                  constraints:
+                    foreignKeyName: loan_branch_fk
+                    references: bank.branch(branch_name)
               - column:
                   name: amount
                   type: numeric(8, 2)
-        - addForeignKeyConstraint:
-            baseTableSchemaName: bank
-            referencedTableSchemaName: bank
-            constraintName: loan_branch_fk
-            baseTableName: loan
-            referencedTableName: branch
-            baseColumnNames: branch_name
-            referencedColumnNames: branch_name
         - createTable:
             schemaName: bank
             tableName: borrower
@@ -69,29 +64,19 @@ databaseChangeLog:
               - column:
                   name: id
                   type: varchar(5)
+                  constraints:
+                    foreignKeyName: borrower_customer_fk
+                    references: bank.customer(id)
               - column:
                   name: loan_number
                   type: varchar(5)
+                  constraints:
+                    foreignKeyName: borrower_loan_fk
+                    references: bank.loan(loan_number)
         - addPrimaryKey:
             schemaName: bank
             tableName: borrower
             columnNames: id, loan_number
-        - addForeignKeyConstraint:
-            baseTableSchemaName: bank
-            referencedTableSchemaName: bank
-            constraintName: borrower_customer_fk
-            baseTableName: borrower
-            referencedTableName: customer
-            baseColumnNames: id
-            referencedColumnNames: id
-        - addForeignKeyConstraint:
-            baseTableSchemaName: bank
-            referencedTableSchemaName: bank
-            constraintName: borrower_loan_fk
-            baseTableName: borrower
-            referencedTableName: loan
-            baseColumnNames: loan_number
-            referencedColumnNames: loan_number
         - createTable:
             schemaName: bank
             tableName: account
@@ -104,17 +89,12 @@ databaseChangeLog:
               - column:
                   name: branch_name
                   type: varchar(25)
+                  constraints:
+                    foreignKeyName: account_branch_fk
+                    references: bank.branch(branch_name)
               - column:
                   name: balance
                   type: numeric(14, 2)
-        - addForeignKeyConstraint:
-            baseTableSchemaName: bank
-            referencedTableSchemaName: bank
-            constraintName: account_branch_fk
-            baseTableName: account
-            referencedTableName: branch
-            baseColumnNames: branch_name
-            referencedColumnNames: branch_name
         - createTable:
             schemaName: bank
             tableName: depositor
@@ -122,26 +102,16 @@ databaseChangeLog:
               - column:
                   name: id
                   type: varchar(5)
+                  constraints:
+                    foreignKeyName: depositor_customer_fk
+                    references: bank.customer(id)
               - column:
                   name: account_number
                   type: varchar(5)
+                  constraints:
+                    foreignKeyName: depositor_account_fk
+                    references: bank.account(account_number)
         - addPrimaryKey:
             schemaName: bank
             tableName: depositor
             columnNames: id, account_number
-        - addForeignkeyConstraint:
-            baseTableSchemaName: bank
-            referencedTableSchemaName: bank
-            constraintName: depositor_customer_fk
-            baseTableName: depositor
-            referencedTableName: customer
-            baseColumnNames: id
-            referencedColumnNames: id
-        - addForeignKeyConstraint:
-            baseTableSchemaName: bank
-            referencedTableSchemaName: bank
-            constraintName: depositor_account_fk
-            baseTableName: depositor
-            referencedTableName: account
-            baseColumnNames: account_number
-            referencedColumnNames: account_number
