@@ -116,7 +116,7 @@ databaseChangeLog:
             baseColumnNames: branch_name
             referencedColumnNames: branch_name
         - createTable:
-            schemaname: bank
+            schemaName: bank
             tableName: depositor
             columns:
               - column:
