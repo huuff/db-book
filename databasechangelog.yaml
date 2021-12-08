@@ -7,3 +7,5 @@ databaseChangeLog:
       file: databases/bank-changeset.yaml
   - include:
       file: databases/insurance-changeset.yaml
+  - include:
+      file: ./large-dataset.sql

@@ -1,3 +1,6 @@
+-- liquibase formatted sql
+-- changeset haf:edb184f4-c3c8-4f44-aa7e-6dbfa94d51fc
+SET search_path TO university;
 delete from prereq;
 delete from time_slot;
 delete from advisor;
