@@ -1,0 +1,364 @@
+databaseChangeLog:
+  - changeSet:
+      id: 0e1db9ef-4e0a-4f18-8d0c-60d8e59f47af
+      author: haf
+      changes:
+        - sql:
+            endDelimiter: ;
+            sql: CREATE SCHEMA university
+        - createTable:
+            schemaName: university
+            tableName: classroom
+            columns:
+              - column:
+                  name: building
+                  type: varchar(15)
+              - column:
+                  name: room_number
+                  type: varchar(7)
+              - column:
+                  name: capacity
+                  type: numeric(4, 0)
+        - addPrimaryKey:
+            schemaName: university
+            tableName: classroom
+            columnNames: building, room_number
+        - createTable:
+            schemaName: university
+            tableName: department
+            columns:
+              - column:
+                  name: dept_name
+                  type: varchar(20)
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: building
+                  type: varchar(15)
+              - column:
+                  name: budget
+                  type: numeric(12, 2)
+                  constraints:
+                    checkConstraint: budget > 0
+        - createTable:
+            schemaName: university
+            tableName: course
+            columns:
+              - column:
+                  name: course_id
+                  type: varchar(8)
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: title
+                  type: varchar(50)
+              - column:
+                  name: dept_name
+                  type: varchar(20)
+              - column:
+                  name: credits
+                  type: numeric(2, 0)
+                  constraints:
+                      checkConstraint: credits > 0
+        - addForeignKeyConstraint:
+            baseSchemaName: university
+            referencedSchemaName: university
+            constraintName: course_department_fk
+            baseTableName: course
+            referencedTableName: department
+            baseColumnNames: dept_name
+            referencedColumnNames: dept_name
+            onDelete: SET NULL
+        - createTable:
+            schemaName: university
+            tableName: instructor
+            columns:
+              - column:
+                  name: ID
+                  type: varchar(5)
+                  contstraints:
+                    primaryKey: true
+              - column:
+                  name: name
+                  type: varchar(20)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: dept_name
+                  type: varchar(20)
+              - column:
+                  name: salary
+                  type: numeric(8, 2)
+                  constraints:
+                    checkConstraint: salary > 29000
+        - addForeignKeyConstraint:
+            baseSchemaName: university
+            referencedSchemaName: university
+            constraintName: instructor_department_fk
+            baseTableName: instructor
+            referencedTableName: department
+            baseColumnNames: dept_name
+            referencedColumnNames: dept_name
+            onDelete: SET NULL
+        - createTable:
+            schemaName: university
+            tableName: section
+            columns:
+              - column:
+                  name: course_id
+                  type: varchar(8)
+              - column:
+                  name: sec_id
+                  type: varchar(8)
+              - column:
+                  name: semester
+                  type: varchar(6)
+                  constraints:
+                    checkConstraint: semester IN ('Fall', 'Winter', 'Spring', 'Summer')
+              - column:
+                  name: year
+                  type: numeric(4, 0)
+                  constraints:
+                    checkConstraint: year > 1701 AND year < 2100
+              - column:
+                  name: building
+                  type: varchar(15)
+              - column:
+                  name: room_number
+                  type: varchar(7)
+              - column:
+                  name: time_slot_id
+                  type: varchar(4)
+        - addPrimaryKey:
+            schemaName: university
+            tableName: section
+            columnNames: course_id, sec_id, semester, year
+        - addForeignKeyConstraint:
+            baseSchemaName: university
+            referencedSchemaName: university
+            constraintName: section_course_fk
+            baseTableName: section
+            referencedTableName: course
+            baseColumnNames: course_id
+            referencedColumnNames: course_id
+            onDelete: SET CASCADE
+        - addForeignKeyConstraint:
+            baseSchemaName: university
+            referencedSchemaName: university
+            constraintName: section_classroom_fk
+            baseTableName: section
+            referencedTableName: classroom
+            baseColumnNames: building, room_number
+            referencedColumnNames: building, room_number
+            onDelete: SET NULL
+        - createTable:
+            schemaName: university
+            tableName: teaches
+            columns:
+              - column:
+                  name: ID
+                  type: varchar(5)
+              - column:
+                  name: course_id
+                  type: varchar(8)
+              - column:
+                  name: sec_id
+                  type: varchar(8)
+              - column:
+                  name: semester
+                  type: varchar(6)
+              - column:
+                  name: year
+                  type: numeric(4, 0)
+        - addPrimaryKey:
+            schemaName: university
+            tableName: teaches
+            columnNames: ID, course_id, sec_id, semester, year
+        - addForeignKeyConstraint:
+            baseSchemaName: university
+            referencedSchemaName: university
+            constraintName: teaches_section_fk
+            baseTableName: teaches
+            referencedTableName: section
+            baseColumnNames: course_id, sec_id, semester, year
+            referencedColumnNames: course_id, sec_id, semester, year
+            onDelete: CASCADE
+        - addForeignKeyConstraint:
+            baseSchemaName: university
+            referencedSchemaName: university
+            constraintName: teaches_instructor_fk
+            baseTableName: teaches
+            referencedTableName: instructor
+            baseColumnNames: ID
+            referencedColumnNames: ID
+            onDelete: CASCADE
+        - createTable:
+            schemaName: university
+            tableName: student
+            columns:
+              - column:
+                  name: ID
+                  type: varchar(5)
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: name
+                  type: varchar(20)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: dept_name
+                  type: varchar(20)
+              - column:
+                  name: tot_cred
+                  type: numeric(3, 0)
+                  constraints:
+                    checkConstraint: tot_cred >= 0
+        - addForeignKeyConstraint:
+            baseSchemaName: university
+            referencedSchemaName: university
+            constraintName: student_department_fk
+            baseTableName: student
+            referencedTableName: department
+            baseColumnNames: dept_name
+            referencedColumnNames: dept_name
+            onDelete: SET NULL
+        - createTable:
+            schemaName: university
+            tableName: takes
+            columns:
+              - column:
+                  name: ID
+                  type: varchar(5)
+              - column:
+                  name: course_id
+                  type: varchar(8)
+              - column:
+                  name: sec_id
+                  type: varchar(8)
+              - column:
+                  name: semester
+                  type: varchar(6)
+              - column:
+                  name: year
+                  type: numeric(4, 0)
+              - column:
+                  name: grade
+                  type: varchar(2)
+        - addPrimaryKey:
+            schemaName: university
+            tableName: takes
+            columnNames: ID, course_id, sec_id, semester, year
+        - addForeignKeyConstraint:
+            baseSchemaName: university
+            referencedSchemaName: university
+            constraintName: takes_section_fk
+            baseTableName: takes
+            referencedTableName: section
+            baseColumnNames: course_id, sec_id, semester, year
+            referencedColumnNames: course_id, sec_id, semester, year
+            onDelete: CASCADE
+        - addForeignKeyConstraint:
+            baseSchemaName: university
+            referencedSchemaName: university
+            constraintName: takes_student_fk
+            baseTableName: takes
+            referencedTableName: student
+            baseColumnNames: ID
+            referencedColumnNames: ID
+            onDelete: CASCADE
+        - createTable:
+            schemaName: university
+            tableName: advisor
+            columns:
+              - column:
+                  name: s_ID
+                  type: varchar(5)
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: i_ID
+                  type: varchar(5)
+        - addForeignKeyConstraint:
+            baseSchemaName: university
+            referencedSchemaName: university
+            constraintName: advisor_student_fk
+            baseTableName: advisor
+            referencedTableName: student
+            baseColumnNames: s_ID
+            referencedColumnNames: s_ID
+            onDelete: CASCADE
+        - addForeignKeyConstraint:
+            baseSchemaName: university
+            referencedSchemaName: university
+            constraintName: advisor_instructor_fk
+            baseTableName: advisor
+            referencedTableName: instructor
+            baseColumnNames: i_ID
+            referencedColumnNames: i_ID
+            onDelete: SET NULL
+        - createTable:
+            schemaName: university
+            tableName: time_slot
+            columns:
+              - column:
+                  name: time_slot_id
+                  type: varchar(4)
+              - column:
+                  name: day
+                  type: varchar81),
+              - column:
+                  name: start_hr
+                  type: numeric(2)
+                  constraints:
+                    checkConstraint: start_hr >= 0 AND start_hr < 24
+              - column:
+                  name: start_min
+                  type: numeric(2)
+                  constraints:
+                    checkConstraint: start_min >= 0 AND start_min < 60
+              - column:
+                  name: end_hr
+                  type: numeric(2)
+                  constraints:
+                    checkConstraint: end_hr >= 0 AND end_hr < 24
+              - column:
+                  name: end_min
+                  type: numeric(2)
+                  constraints:
+                    checkConstraint: end_min >= 0 AND end_min < 60
+        - addPrimaryKey:
+            schemaName: university
+            tableName: time_slot
+            columnNames: time_slot_id, day, start_hr, start_min
+        - createTable:
+            schemaName: university
+            tableName: prereq
+            columns:
+              - column:
+                  name: course_id
+                  type: varchar(8)
+              - column:
+                  name: prereq_id
+                  type: varchar(8)
+        - addPrimaryKey:
+            schemaName: university
+            tableName: prereq
+            columnNames: course_id, prereq_id
+        - addForeignKeyConstraint:
+            baseSchemaName: university
+            referencedSchemaName: university
+            constraintName: prereq_course_fk
+            baseTableName: prereq
+            referencedTableName: course
+            baseColumnNames: course_id
+            referencedColumnNames: course_id
+            onDelete: CASCADE
+        - addForeignKeyConstraint:
+            baseSchemaName: university
+            referencedSchemaName: university
+            constraintName: prereq_prereq_fk
+            baseTableName: prereq
+            referencedTableName: course
+            baseColumnNames: prereq_id
+            referencedColumnNames: course_id
