@@ -1,3 +1,5 @@
+SET search_path TO university;
+
 CREATE OR REPLACE FUNCTION ex42a()
 RETURNS TABLE (
   id VARCHAR(5),

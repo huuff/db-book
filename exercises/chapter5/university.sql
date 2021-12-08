@@ -1,3 +1,5 @@
+SET search_path TO university;
+
 -- For 5.4, first I just copy my ex48a function here
 
 CREATE OR REPLACE FUNCTION ex48a()

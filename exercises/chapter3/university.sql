@@ -1,3 +1,5 @@
+SET search_path TO university;
+
 CREATE OR REPLACE FUNCTION ex31a()
 RETURNS TABLE(title VARCHAR(50))
 LANGUAGE plpgsql

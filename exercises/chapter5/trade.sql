@@ -1,3 +1,5 @@
+-- TODO: as a changelog?
+
 CREATE TABLE IF NOT EXISTS nyse(
   year NUMERIC(4, 0),
   month NUMERIC(2, 0),
