@@ -107,6 +107,10 @@ databaseChangeLog:
               - column:
                   name: course_id
                   type: varchar(8)
+                  constraints:
+                    foreignKeyName: section_course_fk
+                    references: university.course(course_id)
+                    deleteCascade: true
               - column:
                   name: sec_id
                   type: varchar(8)
@@ -136,15 +140,6 @@ databaseChangeLog:
         - addForeignKeyConstraint:
             baseTableSchemaName: university
             referencedTableSchemaName: university
-            constraintName: section_course_fk
-            baseTableName: section
-            referencedTableName: course
-            baseColumnNames: course_id
-            referencedColumnNames: course_id
-            onDelete: CASCADE
-        - addForeignKeyConstraint:
-            baseTableSchemaName: university
-            referencedTableSchemaName: university
             constraintName: section_classroom_fk
             baseTableName: section
             referencedTableName: classroom
@@ -158,6 +153,10 @@ databaseChangeLog:
               - column:
                   name: ID
                   type: varchar(5)
+                  constraints:
+                    foreignKeyName: teaches_instructor_fk
+                    references: university.instructor(ID)
+                    deleteCascade: true
               - column:
                   name: course_id
                   type: varchar(8)
@@ -182,15 +181,6 @@ databaseChangeLog:
             referencedTableName: section
             baseColumnNames: course_id, sec_id, semester, year
             referencedColumnNames: course_id, sec_id, semester, year
-            onDelete: CASCADE
-        - addForeignKeyConstraint:
-            baseTableSchemaName: university
-            referencedTableSchemaName: university
-            constraintName: teaches_instructor_fk
-            baseTableName: teaches
-            referencedTableName: instructor
-            baseColumnNames: ID
-            referencedColumnNames: ID
             onDelete: CASCADE
         - createTable:
             schemaName: university
@@ -230,6 +220,10 @@ databaseChangeLog:
               - column:
                   name: ID
                   type: varchar(5)
+                  constraints:
+                    foreignKeyName: takes_student_fk
+                    references: university.student(ID)
+                    deleteCascade: true
               - column:
                   name: course_id
                   type: varchar(8)
@@ -258,15 +252,6 @@ databaseChangeLog:
             baseColumnNames: course_id, sec_id, semester, year
             referencedColumnNames: course_id, sec_id, semester, year
             onDelete: CASCADE
-        - addForeignKeyConstraint:
-            baseTableSchemaName: university
-            referencedTableSchemaName: university
-            constraintName: takes_student_fk
-            baseTableName: takes
-            referencedTableName: student
-            baseColumnNames: ID
-            referencedColumnNames: ID
-            onDelete: CASCADE
         - createTable:
             schemaName: university
             tableName: advisor
@@ -276,18 +261,12 @@ databaseChangeLog:
                   type: varchar(5)
                   constraints:
                     primaryKey: true
+                    foreignKeyName: advisor_student_fk
+                    references: university.student(ID)
+                    deleteCascade: true
               - column:
                   name: i_ID
                   type: varchar(5)
-        - addForeignKeyConstraint:
-            baseTableSchemaName: university
-            referencedTableSchemaName: university
-            constraintName: advisor_student_fk
-            baseTableName: advisor
-            referencedTableName: student
-            baseColumnNames: s_ID
-            referencedColumnNames: ID
-            onDelete: CASCADE
         - addForeignKeyConstraint:
             baseTableSchemaName: university
             referencedTableSchemaName: university
@@ -338,27 +317,17 @@ databaseChangeLog:
               - column:
                   name: course_id
                   type: varchar(8)
+                  constraints:
+                    foreignKeyName: prereq_course_fk
+                    references: university.course(course_id)
+                    deleteCascade: true
               - column:
                   name: prereq_id
                   type: varchar(8)
+                  constraints:
+                    foreignKeyName: prereq_prereq_fk
+                    references: university.course(course_id)
         - addPrimaryKey:
             schemaName: university
             tableName: prereq
             columnNames: course_id, prereq_id
-        - addForeignKeyConstraint:
-            baseTableSchemaName: university
-            referencedTableSchemaName: university
-            constraintName: prereq_course_fk
-            baseTableName: prereq
-            referencedTableName: course
-            baseColumnNames: course_id
-            referencedColumnNames: course_id
-            onDelete: CASCADE
-        - addForeignKeyConstraint:
-            baseTableSchemaName: university
-            referencedTableSchemaName: university
-            constraintName: prereq_prereq_fk
-            baseTableName: prereq
-            referencedTableName: course
-            baseColumnNames: prereq_id
-            referencedColumnNames: course_id
