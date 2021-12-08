@@ -48,17 +48,12 @@ databaseChangeLog:
               - column:
                   name: company_name
                   type: varchar(25)
+                  constraints:
+                    foreignKeyName: works_company_fk
+                    references: employees.company(company_name)
               - column:
                   name: salary
                   type: numeric(10, 2)
-        - addForeignKeyConstraint:
-            baseTableSchemaName: employees
-            referencedTableSchemaName: employees
-            constraintName: works_for_company_fk
-            baseTableName: works
-            baseColumnNames: company_name
-            referencedTableName: company
-            referencedColumnNames: company_name
         - createTable:
             schemaName: employees
             tableName: manages
@@ -68,23 +63,11 @@ databaseChangeLog:
                   type: integer
                   constraints:
                     primaryKey: true
+                    foreignKeyName: managed_employee_fk
+                    references: employees.employee(id)
               - column:
                   name: manager_id
                   type: integer
-        - addForeignKeyConstraint:
-            baseTableSchemaName: employees
-            referencedTableSchemaName: employees
-            constraintName: managed_employee_fk
-            baseTableName: manages
-            baseColumnNames: id
-            referencedTableName: employee
-            referencedColumnNames: id
-        - addForeignKeyConstraint:
-            baseTableSchemaName: employees
-            referencedTableSchemaName: employees
-            constraintName: manager_employee_fk
-            baseTableName: manages
-            baseColumnNames: manager_id
-            referencedTableName: employee
-            referencedColumnNames: id
-                
+                  constraints:
+                    foreignKeyName: manager_employee_fk
+                    references: employees.employee(id)
