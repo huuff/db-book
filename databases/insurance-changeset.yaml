@@ -1,0 +1,131 @@
+databaseChangeLog:
+  - changeSet:
+      id: 4cf6367d-0a88-4a09-8dd1-5ea2064938ac
+      author: haf
+      changes:
+        - sql:
+            endDelimiter: ;
+            sql: CREATE SCHEMA insurance
+        - createTable:
+            schemaName: insurance
+            tableName: person
+            columns:
+              - column:
+                  name: driver_id
+                  type: varchar(5)
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: name
+                  type: varchar(25)
+              - column:
+                  name: address
+                  type: varchar(50)
+        - createTable:
+            schemaName: insurance
+            tableName: car
+            columns:
+              - column:
+                  name: license_plate
+                  type: varchar(10)
+                  constraints:
+                      primaryKey: true
+              - column:
+                  name: model
+                  type: varchar(25)
+              - column:
+                  name: year
+                  type: numeric(4, 0)
+        - createTable:
+            schemaName: insurance
+            tableName: accident
+            columns:
+              - column:
+                  name: report_name
+                  type: varchar(5)
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: year
+                  type: numeric(4, 0)
+              - column:
+                  name: location
+                  type: varchar(50)
+        - createTable:
+            schemaName: insurance
+            tableName: owns
+            columns:
+              - column:
+                  name: driver_id
+                  type: varchar(5)
+              - column:
+                  name: license_plate
+                  type: varchar(10)
+        - addPrimaryKey:
+            schemaName: insurance
+            tableName: owns
+            columnNames: driver_id, license_plate
+        - addForeignKey:
+            baseTableSchema: insurance
+            referencedTableSchema: insurance
+            constraintName: owns_person_fk
+            baseTableName: owns
+            referencedTableName: person
+            baseColumnNames: driver_id
+            referencedColumnNames: driver_id
+            onDelete: CASCADE
+        - addForeignKey:
+            baseTableSchema: insurance
+            referencedTableSchema: insurance
+            constraintName: owns_car_fk
+            baseTableName: owns
+            referencedTableName: car
+            baseColumnNames: license_plate
+            referencedColumnNames: license_plate
+            onDelete: CASCADE
+        - createTable:
+            schemaName: insurance
+            tableName: participated
+            columns:
+              - column:
+                  name: report_number
+                  type: varchar(5)
+              - column:
+                  name: license_plate
+                  type: varchar(10)
+              - column:
+                  name: driver_id
+                  type: varchar(5)
+              - column:
+                  name: damage_amount
+                  type: numeric(8, 2)
+        - addPrimaryKey:
+            schemaName: insurance
+            tableName: participated
+            columnNames: report_number, license_plate
+        - addForeignKey:
+            baseSchemaName: insurance
+            referencedSchemaName: insurance
+            constraintName: participated_accident_fk
+            baseTableName: participated
+            referencedTableName: accident
+            baseColumnNames: report_number
+            referencedColumnNames: report_number
+            onDelete: CASCADE
+        - addForeignKey:
+            baseSchemaName: insurance
+            referencedSchemaName: insurance
+            baseTableName: participated
+            referencedTableName: car
+            constraintName: participated_car_fk
+            baseColumnNames: license_plate
+            referencedColumnNames: license_plate
+        - addForeignKey:
+            baseSchemaName: insurance
+            referencedSchemaName: insurance
+            constraintName: participated_person_fk
+            baseTableName: participated
+            referencedTableName: person
+            baseColumnNames: driver_id
+            referencedColumnNames: driver_id
+            onDelete: CASCADE

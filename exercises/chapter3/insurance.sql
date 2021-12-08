@@ -1,3 +1,5 @@
+SET search_path TO insurance; 
+
 CREATE OR REPLACE FUNCTION ex34a(query_year NUMERIC(4, 0))
 RETURNS BIGINT
 LANGUAGE plpgsql
