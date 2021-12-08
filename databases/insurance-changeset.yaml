@@ -41,7 +41,7 @@ databaseChangeLog:
             tableName: accident
             columns:
               - column:
-                  name: report_name
+                  name: report_number
                   type: varchar(5)
                   constraints:
                     primaryKey: true
@@ -58,31 +58,21 @@ databaseChangeLog:
               - column:
                   name: driver_id
                   type: varchar(5)
+                  constraints:
+                    foreignKeyName: owns_person_fk
+                    references: insurance.person(driver_id)
+                    deleteCascade: true
               - column:
                   name: license_plate
                   type: varchar(10)
+                  constraints:
+                    foreignKeyName: ownes_car_fk
+                    references: insurance.car(license_plate)
+                    deleteCascade: true
         - addPrimaryKey:
             schemaName: insurance
             tableName: owns
             columnNames: driver_id, license_plate
-        - addForeignKey:
-            baseTableSchema: insurance
-            referencedTableSchema: insurance
-            constraintName: owns_person_fk
-            baseTableName: owns
-            referencedTableName: person
-            baseColumnNames: driver_id
-            referencedColumnNames: driver_id
-            onDelete: CASCADE
-        - addForeignKey:
-            baseTableSchema: insurance
-            referencedTableSchema: insurance
-            constraintName: owns_car_fk
-            baseTableName: owns
-            referencedTableName: car
-            baseColumnNames: license_plate
-            referencedColumnNames: license_plate
-            onDelete: CASCADE
         - createTable:
             schemaName: insurance
             tableName: participated
@@ -90,12 +80,22 @@ databaseChangeLog:
               - column:
                   name: report_number
                   type: varchar(5)
+                  constraints:
+                    foreignKeyName: participated_accident_fk
+                    references: insurance.accident(report_number)
+                    deleteCascade: true
               - column:
                   name: license_plate
                   type: varchar(10)
+                  constraints:
+                    foreignKeyName: participated_car_fk
+                    references: insurance.car(license_plate)
               - column:
                   name: driver_id
                   type: varchar(5)
+                  constraints:
+                    foreignKeyName: participated_person_fk
+                    references: insurance.person(driver_id)
               - column:
                   name: damage_amount
                   type: numeric(8, 2)
@@ -103,29 +103,3 @@ databaseChangeLog:
             schemaName: insurance
             tableName: participated
             columnNames: report_number, license_plate
-        - addForeignKey:
-            baseSchemaName: insurance
-            referencedSchemaName: insurance
-            constraintName: participated_accident_fk
-            baseTableName: participated
-            referencedTableName: accident
-            baseColumnNames: report_number
-            referencedColumnNames: report_number
-            onDelete: CASCADE
-        - addForeignKey:
-            baseSchemaName: insurance
-            referencedSchemaName: insurance
-            baseTableName: participated
-            referencedTableName: car
-            constraintName: participated_car_fk
-            baseColumnNames: license_plate
-            referencedColumnNames: license_plate
-        - addForeignKey:
-            baseSchemaName: insurance
-            referencedSchemaName: insurance
-            constraintName: participated_person_fk
-            baseTableName: participated
-            referencedTableName: person
-            baseColumnNames: driver_id
-            referencedColumnNames: driver_id
-            onDelete: CASCADE
