@@ -1,3 +1,5 @@
 databaseChangeLog:
   - include:
       file: databases/employees-changeset.yaml
+  - include:
+      file: databases/bank-changeset.yaml

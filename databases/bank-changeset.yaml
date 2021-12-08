@@ -1,0 +1,147 @@
+databaseChangeLog:
+  - changeSet:
+      id: 95ef22ad-41d4-4ff1-ac73-9b9960ba129f
+      author: haf
+      changes:
+        - sql:
+            endDelimiter: ;
+            sql: CREATE SCHEMA bank
+        - createTable:
+            schemaName: bank
+            tableName: branch
+            columns:
+              - column:
+                  name: branch_name
+                  type: varchar(25)
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: branch_city
+                  type: varchar(25)
+              - column:
+                  name: assets
+                  type: numeric(14, 2)
+        - createTable:
+            schemaName: bank
+            tableName: customer
+            columns:
+              - column:
+                  name: id
+                  type: varchar(5)
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: customer_name
+                  type: varchar(25)
+              - column:
+                  name: customer_street
+                  type: varchar(25)
+              - column:
+                  name: customer_city
+                  type: varchar(25)
+        - createTable:
+            schemaName: bank
+            tableName: loan
+            columns:
+              - column:
+                  name: loan_number
+                  type: varchar(5)
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: branch_name
+                  type: varchar(25)
+              - column:
+                  name: amount
+                  type: numeric(8, 2)
+        - addForeignKeyConstraint:
+            baseTableSchemaName: bank
+            referencedTableSchemaName: bank
+            constraintName: loan_branch_fk
+            baseTableName: loan
+            referencedTableName: branch
+            baseColumnNames: branch_name
+            referencedColumnNames: branch_name
+        - createTable:
+            schemaName: bank
+            tableName: borrower
+            columns:
+              - column:
+                  name: id
+                  type: varchar(5)
+              - column:
+                  name: loan_number
+                  type: varchar(5)
+        - addPrimaryKey:
+            schemaName: bank
+            tableName: borrower
+            columnNames: id, loan_number
+        - addForeignKeyConstraint:
+            baseTableSchemaName: bank
+            referencedTableSchemaName: bank
+            constraintName: borrower_customer_fk
+            baseTableName: borrower
+            referencedTableName: customer
+            baseColumnNames: id
+            referencedColumnNames: id
+        - addForeignKeyConstraint:
+            baseTableSchemaName: bank
+            referencedTableSchemaName: bank
+            constraintName: borrower_loan_fk
+            baseTableName: borrower
+            referencedTableName: loan
+            baseColumnNames: loan_number
+            referencedColumnNames: loan_number
+        - createTable:
+            schemaName: bank
+            tableName: account
+            columns:
+              - column:
+                  name: account_number
+                  type: varchar(5)
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: branch_name
+                  type: varchar(25)
+              - column:
+                  name: balance
+                  type: numeric(14, 2)
+        - addForeignKeyConstraint:
+            baseTableSchemaName: bank
+            referencedTableSchemaName: bank
+            constraintName: account_branch_fk
+            baseTableName: account
+            referencedTableName: branch
+            baseColumnNames: branch_name
+            referencedColumnNames: branch_name
+        - createTable:
+            schemaname: bank
+            tableName: depositor
+            columns:
+              - column:
+                  name: id
+                  type: varchar(5)
+              - column:
+                  name: account_number
+                  type: varchar(5)
+        - addPrimaryKey:
+            schemaName: bank
+            tableName: depositor
+            columnNames: id, account_number
+        - addForeignkeyConstraint:
+            baseTableSchemaName: bank
+            referencedTableSchemaName: bank
+            constraintName: depositor_customer_fk
+            baseTableName: depositor
+            referencedTableName: customer
+            baseColumnNames: id
+            referencedColumnNames: id
+        - addForeignKeyConstraint:
+            baseTableSchemaName: bank
+            referencedTableSchemaName: bank
+            constraintName: depositor_account_fk
+            baseTableName: depositor
+            referencedTableName: account
+            baseColumnNames: account_number
+            referencedColumnNames: account_number
