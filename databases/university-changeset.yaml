@@ -76,7 +76,7 @@ databaseChangeLog:
               - column:
                   name: ID
                   type: varchar(5)
-                  contstraints:
+                  constraints:
                     primaryKey: true
               - column:
                   name: name

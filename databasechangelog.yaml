@@ -1,5 +1,7 @@
 databaseChangeLog:
   - include:
+      file: databases/university-changeset.yaml
+  - include:
       file: databases/employees-changeset.yaml
   - include:
       file: databases/bank-changeset.yaml

@@ -38,7 +38,7 @@ in {
     '';
 
     services.load-db = {
-      enable = true;
+      enable = false;
       description = "Load all data into DB";
       path = [ pkgs.postgresql_13 ];
 
