@@ -1,3 +1,5 @@
+SET search_path TO bank;
+
 CREATE OR REPLACE FUNCTION ex38a()
 RETURNS TABLE ( id VARCHAR(5))
 LANGUAGE plpgsql

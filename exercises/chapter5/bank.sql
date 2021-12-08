@@ -1,3 +1,5 @@
+SET search_path TO bank;
+
 -- Changing it slightly so it works with what we were given in Chapter 3
 DROP MATERIALIZED VIEW IF EXISTS branch_cust;
 CREATE MATERIALIZED VIEW branch_cust
