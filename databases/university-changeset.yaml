@@ -61,8 +61,8 @@ databaseChangeLog:
                   constraints:
                       checkConstraint: credits > 0
         - addForeignKeyConstraint:
-            baseSchemaName: university
-            referencedSchemaName: university
+            baseTableSchemaName: university
+            referencedTableSchemaName: university
             constraintName: course_department_fk
             baseTableName: course
             referencedTableName: department
@@ -92,8 +92,8 @@ databaseChangeLog:
                   constraints:
                     checkConstraint: salary > 29000
         - addForeignKeyConstraint:
-            baseSchemaName: university
-            referencedSchemaName: university
+            baseTableSchemaName: university
+            referencedTableSchemaName: university
             constraintName: instructor_department_fk
             baseTableName: instructor
             referencedTableName: department
@@ -134,17 +134,17 @@ databaseChangeLog:
             tableName: section
             columnNames: course_id, sec_id, semester, year
         - addForeignKeyConstraint:
-            baseSchemaName: university
-            referencedSchemaName: university
+            baseTableSchemaName: university
+            referencedTableSchemaName: university
             constraintName: section_course_fk
             baseTableName: section
             referencedTableName: course
             baseColumnNames: course_id
             referencedColumnNames: course_id
-            onDelete: SET CASCADE
+            onDelete: CASCADE
         - addForeignKeyConstraint:
-            baseSchemaName: university
-            referencedSchemaName: university
+            baseTableSchemaName: university
+            referencedTableSchemaName: university
             constraintName: section_classroom_fk
             baseTableName: section
             referencedTableName: classroom
@@ -175,8 +175,8 @@ databaseChangeLog:
             tableName: teaches
             columnNames: ID, course_id, sec_id, semester, year
         - addForeignKeyConstraint:
-            baseSchemaName: university
-            referencedSchemaName: university
+            baseTableSchemaName: university
+            referencedTableSchemaName: university
             constraintName: teaches_section_fk
             baseTableName: teaches
             referencedTableName: section
@@ -184,8 +184,8 @@ databaseChangeLog:
             referencedColumnNames: course_id, sec_id, semester, year
             onDelete: CASCADE
         - addForeignKeyConstraint:
-            baseSchemaName: university
-            referencedSchemaName: university
+            baseTableSchemaName: university
+            referencedTableSchemaName: university
             constraintName: teaches_instructor_fk
             baseTableName: teaches
             referencedTableName: instructor
@@ -215,8 +215,8 @@ databaseChangeLog:
                   constraints:
                     checkConstraint: tot_cred >= 0
         - addForeignKeyConstraint:
-            baseSchemaName: university
-            referencedSchemaName: university
+            baseTableSchemaName: university
+            referencedTableSchemaName: university
             constraintName: student_department_fk
             baseTableName: student
             referencedTableName: department
@@ -250,8 +250,8 @@ databaseChangeLog:
             tableName: takes
             columnNames: ID, course_id, sec_id, semester, year
         - addForeignKeyConstraint:
-            baseSchemaName: university
-            referencedSchemaName: university
+            baseTableSchemaName: university
+            referencedTableSchemaName: university
             constraintName: takes_section_fk
             baseTableName: takes
             referencedTableName: section
@@ -259,8 +259,8 @@ databaseChangeLog:
             referencedColumnNames: course_id, sec_id, semester, year
             onDelete: CASCADE
         - addForeignKeyConstraint:
-            baseSchemaName: university
-            referencedSchemaName: university
+            baseTableSchemaName: university
+            referencedTableSchemaName: university
             constraintName: takes_student_fk
             baseTableName: takes
             referencedTableName: student
@@ -280,22 +280,22 @@ databaseChangeLog:
                   name: i_ID
                   type: varchar(5)
         - addForeignKeyConstraint:
-            baseSchemaName: university
-            referencedSchemaName: university
+            baseTableSchemaName: university
+            referencedTableSchemaName: university
             constraintName: advisor_student_fk
             baseTableName: advisor
             referencedTableName: student
             baseColumnNames: s_ID
-            referencedColumnNames: s_ID
+            referencedColumnNames: ID
             onDelete: CASCADE
         - addForeignKeyConstraint:
-            baseSchemaName: university
-            referencedSchemaName: university
+            baseTableSchemaName: university
+            referencedTableSchemaName: university
             constraintName: advisor_instructor_fk
             baseTableName: advisor
             referencedTableName: instructor
             baseColumnNames: i_ID
-            referencedColumnNames: i_ID
+            referencedColumnNames: ID
             onDelete: SET NULL
         - createTable:
             schemaName: university
@@ -306,7 +306,7 @@ databaseChangeLog:
                   type: varchar(4)
               - column:
                   name: day
-                  type: varchar81),
+                  type: varchar(1)
               - column:
                   name: start_hr
                   type: numeric(2)
@@ -346,8 +346,8 @@ databaseChangeLog:
             tableName: prereq
             columnNames: course_id, prereq_id
         - addForeignKeyConstraint:
-            baseSchemaName: university
-            referencedSchemaName: university
+            baseTableSchemaName: university
+            referencedTableSchemaName: university
             constraintName: prereq_course_fk
             baseTableName: prereq
             referencedTableName: course
@@ -355,8 +355,8 @@ databaseChangeLog:
             referencedColumnNames: course_id
             onDelete: CASCADE
         - addForeignKeyConstraint:
-            baseSchemaName: university
-            referencedSchemaName: university
+            baseTableSchemaName: university
+            referencedTableSchemaName: university
             constraintName: prereq_prereq_fk
             baseTableName: prereq
             referencedTableName: course
