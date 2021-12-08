@@ -45,3 +45,39 @@ databaseChangeLog:
         - sqlFile:
             path: ./exercises/chapter3/bank.sql
             splitStatements: false
+  - changeSet:
+      id: 46697bc1-91bb-4384-a2f2-c2a9d9e2159f
+      author: haf
+      comment: Chapter 4 exercises for the university schema
+      runOnChange: true
+      changes:
+        - sqlFile:
+            path: ./exercises/chapter4/university.sql
+            splitStatements: false
+  - changeSet:
+      id: f121bffc-8b44-4c39-a61c-c1a657112553
+      author: haf
+      comment: Chapter 5 exercises for the university schema
+      runOnChange: true
+      changes:
+        - sqlFile:
+            path: ./exercises/chapter5/university.sql
+            splitStatements: false
+  - changeSet:
+      id: cefc3353-7c9c-4e43-8355-4bf2d96dec43
+      author: haf
+      comment: Chapter 5 exercises for the bank schema
+      runOnChange: true
+      changes:
+        - sqlFile:
+            path: ./exercises/chapter5/bank.sql
+            splitStatements: false
+  - changeSet:
+      id: ac03759b-5756-4b24-8b40-10ef5d273d66
+      author: haf
+      comment: Chapter 5 exercises for the nyse schema
+      runOnChange: true
+      changes:
+        - sqlFile:
+            path: ./exercises/chapter5/trade.sql
+            splitStatements: false
