@@ -19,13 +19,7 @@ in {
       host all all 0.0.0.0/0 trust
     '';
 
-    ensureDatabases = [ 
-      "exercises"
-      "university" 
-      "insurance"
-      "bank"
-      "employees"
-    ];
+    ensureDatabases = [ "exercises" ];
 
     settings= {
       listen_addresses = "*";
@@ -37,14 +31,15 @@ in {
       DefaultTimeoutStopSec=1000s
     '';
 
-    services.load-db = {
-      enable = false;
+    services.liquibase = {
+      enable = true;
       description = "Load all data into DB";
-      path = [ pkgs.postgresql_13 ];
+      path = [ pkgs.liquibase ];
 
       serviceConfig = {
         Type = "simple";
         RemainAfterExit = true;
+        WorkingDirectory = ./.;
       };
 
       unitConfig = {
@@ -55,8 +50,7 @@ in {
       wantedBy = [ "multi-user.target" ];
 
       script = ''
-        psql -U postgres -d 'exercises' -f ${./databases/university.sql}
-        psql -U postgres -d 'exercises' -f ${largeDataset}
+        liquibase --url=jdbc:postgresql://localhost/exercises update
       '';
     };
   };
