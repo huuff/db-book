@@ -13,6 +13,7 @@ databaseChangeLog:
       id: 363c0ff5-53d5-428b-8690-4371e45f1f15
       author: haf
       comment: Chapter 3 exercises for the university schema
+      runOnChange: true
       changes:
         - sqlFile:
             path: ./exercises/chapter3/university.sql
@@ -21,6 +22,7 @@ databaseChangeLog:
       id: fd1d72fe-c1bf-44df-9c89-ca8adf88d7d5
       author: haf
       comment: Chapter 3 exercises for the employees schema
+      runOnChange: true
       changes:
         - sqlFile:
             path: ./exercises/chapter3/employees.sql
@@ -29,6 +31,7 @@ databaseChangeLog:
       id: f97fe5fd-c113-4934-94e4-9b77754f90b0
       author: haf
       comment: Chapter 3 exercises for the insurance schema
+      runOnChange: true
       changes:
         - sqlFile:
             path: ./exercises/chapter3/insurance.sql
@@ -37,6 +40,7 @@ databaseChangeLog:
       id: f50ef665-0235-4b91-92a8-a5ba14037367
       author: haf
       comment: Chapter 3 exercises for the bank schema
+      runOnChange: true
       changes:
         - sqlFile:
             path: ./exercises/chapter3/bank.sql
