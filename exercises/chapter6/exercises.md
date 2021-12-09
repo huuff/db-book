@@ -113,3 +113,7 @@ The answer says that because of $(e_2, a_2)$, there can't be any instance of $A$
 * $R = \{(a_1, b_1, c_1), (a_2, \text{null}, \text{null}) \}$
 
 Is it not valid?
+==TODO: finish it, but I don't think I understand it==
+
+## 6.7
+Then the attributes of the (previously) strong entity would be in two different places. Since that entity exists independently of the (previously) weak entity, it means that we could have one instance of the weak entity with the same information as the strong entity, and whenever we need to update one we must make sure to update both or inconsistencies might ensue.
