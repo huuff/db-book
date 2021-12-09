@@ -92,3 +92,24 @@ This means that it can be divided into different sets of entities, whose entites
 
 ### b)
 There is some recursive relation? So a prime use case for recursive [[databases/cte]]s.
+
+## 6.6
+I'm not sure I understand this one. The fact that all relationships are many-to-many doesn't mean that there can be null entities?
+
+The answer manual gives
+* $E = \{e_1, e_2 \}$
+* $A = \{a_1, a_2\}$
+* $B = \{b_1\}$
+* $C = \{c_1\}$
+* $R_A = \{(e_1, a_1), (e_2, a_2) \}$
+* $R_B = \{(e_1, b_1) \}$
+* $R_C = \{(e_1, c_1) \}$
+
+The answer says that because of $(e_2, a_2)$, there can't be any instance of $A$, $B$, $C$ and $R$ that corresponds to it. But what about 
+
+* $A = \{a_1, a_2\}$
+* $B = \{b_1\}$
+* $C = \{c_1\}$
+* $R = \{(a_1, b_1, c_1), (a_2, \text{null}, \text{null}) \}$
+
+Is it not valid?
