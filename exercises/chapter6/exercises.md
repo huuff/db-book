@@ -85,3 +85,10 @@ Can't do derived attributes with mermaid but don't think these matter too much f
 
 ## 6.4
 The maintenance costs of having to update each occurrence whenever there's a change are higher, and also the possibility of one occurrence not being updated sneaks in, thus causing inconsistencies.
+
+## 6.5
+### a)
+This means that it can be divided into different sets of entities, whose entites are not related to any of the entities of the other sets. So maybe it could be separated into different schemas or databases
+
+### b)
+There is some recursive relation? So a prime use case for recursive [[databases/cte]]s.
