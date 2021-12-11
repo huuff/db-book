@@ -126,3 +126,14 @@ Just as in the one-to-many case, the foreign key is only on one side of the rela
 
 ## 6.10
 Since it's many-to-one, the "many" side has a foreign key to the "one" side. However, one entity on the "many" side can have no related entity on the "one" side if the foreign key is nullable. Making the foreign key not nullable ensures that any entity on the "many" side has a corresponding entity in the "one" side and thus the participation is total
+
+## 6.11
+### a)
+For one-to-many, since the foreign key is in the "many" side, the "one" side os oblivious to the relationship and thus it's impossible for it to force total participation. For the many-to-many case the relationship is reduced to a table, and ensuring that all entities on both sides have a corresponding entity in the other side would need checking three tables (these of the entities, to know which entities exist, and that of the relationship, to check what relationships exist). Thus, this is not possible with simple checks and foreign keys.
+
+I really don't know what the first part of the question has to do with this issue. I don't see how allowing a foregin key to be declared to non-unique values would allow this scenario.
+
+==I think, maybe if foreign keys could point to non-unique attributes, for the many-to-many case, we could have a foreign key on one side to the row in the relationship table? This feels really weird==
+
+### b)
+==TODO: Repeat this one==
