@@ -120,3 +120,6 @@ Then the attributes of the (previously) strong entity would be in two different 
 
 ## 6.8
 Yes. The relationship creates a foreign key on `section` to the primary key of `course`. Therefore, `course` is oblivious to the relationship, any `section` can have only one `course` and many `sections` can have the same `course`.
+
+## 6.9
+Just as in the one-to-many case, the foreign key is only on one side of the relationship and thus we force the "one" side. The only extra needed constraint is making the foreign key attribute unique, and thus only one tuple in one relation can correspond to another tuple in the other relation.
