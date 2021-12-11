@@ -123,3 +123,6 @@ Yes. The relationship creates a foreign key on `section` to the primary key of `
 
 ## 6.9
 Just as in the one-to-many case, the foreign key is only on one side of the relationship and thus we force the "one" side. The only extra needed constraint is making the foreign key attribute unique, and thus only one tuple in one relation can correspond to another tuple in the other relation.
+
+## 6.10
+Since it's many-to-one, the "many" side has a foreign key to the "one" side. However, one entity on the "many" side can have no related entity on the "one" side if the foreign key is nullable. Making the foreign key not nullable ensures that any entity on the "many" side has a corresponding entity in the "one" side and thus the participation is total
