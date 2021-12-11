@@ -117,3 +117,6 @@ Is it not valid?
 
 ## 6.7
 Then the attributes of the (previously) strong entity would be in two different places. Since that entity exists independently of the (previously) weak entity, it means that we could have one instance of the weak entity with the same information as the strong entity, and whenever we need to update one we must make sure to update both or inconsistencies might ensue.
+
+## 6.8
+Yes. The relationship creates a foreign key on `section` to the primary key of `course`. Therefore, `course` is oblivious to the relationship, any `section` can have only one `course` and many `sections` can have the same `course`.
