@@ -137,3 +137,6 @@ I really don't know what the first part of the question has to do with this issu
 
 ### b)
 ==TODO: Repeat this one==
+
+## 6.12
+All attributes of $X$ and $Y$ are inherited by $A$, $B$ and $C$ (that is, they are implicitly present). In case an attribute has the same name in both $X$ and $Y$, it could be prefixed with $X_$ or $Y_$ in $A$, $B$ and $C$
