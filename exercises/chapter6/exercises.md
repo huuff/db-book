@@ -140,3 +140,24 @@ I really don't know what the first part of the question has to do with this issu
 
 ## 6.12
 All attributes of $X$ and $Y$ are inherited by $A$, $B$ and $C$ (that is, they are implicitly present). In case an attribute has the same name in both $X$ and $Y$, it could be prefixed with $X_$ or $Y_$ in $A$, $B$ and $C$
+
+## 6.13
+### a)
+```mermaid
+erDiagram
+  student {
+    string id
+    int tot_cred
+    valid_time valid_time
+  }
+  instructor {
+    string id
+    string name
+    numeric salary
+    valid_time valid_time
+  }
+  instructor }o--o{ student : advises
+```
+
+(Unfortunately I don't know how to do many things with mermaid.js or whether they are possible)
+The primary key for `student` is `(id, valid_time)` and for `instructor` is `(id, valid_time)`. The `advises` relation has an attribute `valid_time`
